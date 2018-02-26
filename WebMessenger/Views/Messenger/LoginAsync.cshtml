@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("LoginAsync", "Messenger", FormMethod.Post)) {
+    <input type="text" name="PW" id="PW" />
+    <input type="text" name="Name" id="Name" />
+
+    <input type="submit" value="Login" />
+}

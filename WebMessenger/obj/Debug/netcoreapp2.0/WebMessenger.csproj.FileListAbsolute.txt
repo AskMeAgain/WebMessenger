@@ -1,0 +1,11 @@
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\bin\Debug\netcoreapp2.0\WebMessenger.deps.json
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\bin\Debug\netcoreapp2.0\WebMessenger.runtimeconfig.json
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\bin\Debug\netcoreapp2.0\WebMessenger.runtimeconfig.dev.json
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\bin\Debug\netcoreapp2.0\WebMessenger.dll
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\bin\Debug\netcoreapp2.0\WebMessenger.pdb
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.csprojResolveAssemblyReference.cache
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.csproj.CoreCompileInputs.cache
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.AssemblyInfoInputs.cache
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.AssemblyInfo.cs
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.dll
+C:\Users\kelvi\source\repos\WebMessenger\WebMessenger\obj\Debug\netcoreapp2.0\WebMessenger.pdb
