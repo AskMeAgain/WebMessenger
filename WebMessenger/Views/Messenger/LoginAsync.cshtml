@@ -1,4 +1,4 @@
-﻿
+﻿@model WebMessenger.Models.User
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,9 +6,26 @@
 
 <h2>Login</h2>
 
-@using (Html.BeginForm("LoginAsync", "Messenger", FormMethod.Post)) {
-    <input type="text" name="PW" id="PW" />
-    <input type="text" name="Name" id="Name" />
+@using (Html.BeginForm("LoginAsync", "WebMessenger", FormMethod.Post)) {
 
-    <input type="submit" value="Login" />
+    <br /><label>Name</label> @Html.TextBoxFor(model => model.Name)
+    <br /><label>Password</label> @Html.TextBoxFor(model => model.PW)
+    <button type="submit">Login</button>
+
 }
+
+<br /><br /><br />
+
+<h2>Register</h2>
+
+@using (Html.BeginForm("RegisterAsync", "WebMessenger", FormMethod.Post)) {
+
+    <br /> <label>Name</label> @Html.TextBoxFor(model => model.Name);
+    <br /> <label>Password</label> @Html.TextBoxFor(model => model.PW);
+    <br /> <label>Seed</label> @Html.TextBoxFor(model => model.Seed);
+
+    <button type="submit">Register</button>
+
+}
+
+

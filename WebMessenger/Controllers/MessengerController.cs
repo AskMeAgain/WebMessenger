@@ -18,21 +18,30 @@ namespace WebMessenger.Controllers {
             _context = context;
         }
 
-        public async Task<IActionResult> LoginAsync(string Name, string PW) {
+        public async Task<IActionResult> LoginAsync(User model) {
 
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(model.Name))
                 return View();
 
             //CHECK IF LOGIN IS CORRECT VIA DB!
             var user = await _context.User
-                .SingleAsync(m => m.Name == Name && m.PW == PW);
-            if (user == null) {
+                .SingleAsync(m => m.Name == model.Name && m.PW == model.PW);
+            if (user == null) 
                 return Content("NOT FOUND! WEW");
-            }
+            
 
             HttpContext.Session.SetObjectAsJson("User", user);
 
             return RedirectToAction("Home");
+        }
+
+        public async Task<IActionResult> RegisterAsync(User model) {
+
+            _context.Add(model);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("LoginAsync");
+
         }
 
         public ActionResult Home() {
