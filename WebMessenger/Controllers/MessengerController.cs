@@ -18,29 +18,44 @@ namespace WebMessenger.Controllers {
             _context = context;
         }
 
-        public async Task<IActionResult> LoginAsync(User model) {
+        [HttpPost]
+        public async Task<ActionResult> CheckLoginAsync(User user) {
 
-            if (string.IsNullOrEmpty(model.Name))
-                return View();
+            if (string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.PW))
+                return RedirectToAction("Login");
 
             //CHECK IF LOGIN IS CORRECT VIA DB!
-            var user = await _context.User
-                .SingleAsync(m => m.Name == model.Name && m.PW == model.PW);
-            if (user == null) 
+            var entity = await _context.User
+                .SingleAsync(m => m.Name == user.Name && m.PW == user.PW);
+            if (entity == null)
                 return Content("NOT FOUND! WEW");
-            
 
-            HttpContext.Session.SetObjectAsJson("User", user);
+            HttpContext.Session.SetObjectAsJson("User", entity);
 
             return RedirectToAction("Home");
+
+
         }
 
-        public async Task<IActionResult> RegisterAsync(User model) {
+        public ActionResult Login() {
 
-            _context.Add(model);
+            return View();
+            
+        }
+
+        public async Task<IActionResult> RegisterAsync(User user) {
+
+            //first check if username is used!
+            bool entity = _context.User
+                .Any(m => m.Name == user.Name);
+            if (entity)
+                return Content("Sorry Mate your username is used!");
+
+
+            _context.Add(user);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("LoginAsync");
+            return RedirectToAction("Login");
 
         }
 

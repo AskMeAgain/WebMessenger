@@ -6,13 +6,13 @@ namespace WebMessenger.Data {
     public static class DbInitializer {
         public static void Initialize(DataBaseContext context) {
 
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
 
             context.Database.EnsureCreated();
 
             // Look for any students.
             if (context.User.Any()) {
-               // return;   // DB has been seeded
+                return;   // DB has been seeded
             }
 
 

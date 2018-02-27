@@ -46,8 +46,9 @@ namespace WebMessenger {
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Messenger}/{action=LoginAsync}/{id?}");
+                    template: "{controller=Messenger}/{action=Login}/{id?}");
             });
+
         }
     }
 }

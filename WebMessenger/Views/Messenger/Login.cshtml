@@ -6,7 +6,7 @@
 
 <h2>Login</h2>
 
-@using (Html.BeginForm("LoginAsync", "WebMessenger", FormMethod.Post)) {
+@using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
 
     <br /><label>Name</label> @Html.TextBoxFor(model => model.Name)
     <br /><label>Password</label> @Html.TextBoxFor(model => model.PW)
@@ -18,7 +18,7 @@
 
 <h2>Register</h2>
 
-@using (Html.BeginForm("RegisterAsync", "WebMessenger", FormMethod.Post)) {
+@using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
 
     <br /> <label>Name</label> @Html.TextBoxFor(model => model.Name);
     <br /> <label>Password</label> @Html.TextBoxFor(model => model.PW);
