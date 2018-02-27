@@ -12,5 +12,6 @@ namespace WebMessenger.Models {
         public string PW { get; set; }
         public int AddressIndex { get; set; }
 
+        public ICollection<Address> Address { get; set; }
     }
 }

@@ -40,7 +40,7 @@ namespace WebMessenger.Controllers {
         public ActionResult Login() {
 
             return View();
-            
+
         }
 
         public async Task<IActionResult> RegisterAsync(User user) {
@@ -53,6 +53,8 @@ namespace WebMessenger.Controllers {
 
 
             _context.Add(user);
+            await generateAddressFromUserAsync(user);
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -69,6 +71,20 @@ namespace WebMessenger.Controllers {
             return View(user);
 
         }
+
+        public async Task generateAddressFromUserAsync(User user) {
+
+            Address addr = new Address() {
+                Index = user.AddressIndex,
+                generatedAddress = "LOL TEST",
+                UserID = user.UserID
+            };
+
+            _context.Add(addr);
+            await _context.SaveChangesAsync();
+
+        }
+
 
     }
 }
