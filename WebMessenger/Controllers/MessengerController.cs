@@ -85,7 +85,7 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<IActionResult> AddFriendAsync(User model) {
+        public async Task<IActionResult> MakeConnectionAsync(User model) {
 
             //Get both userIDs
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
