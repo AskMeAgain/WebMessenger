@@ -11,7 +11,7 @@ namespace WebMessenger.Data {
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options) { }
 
         public DbSet<User> User { get; set; }
-        public DbSet<Address> Address { get; set; }
+        public DbSet<AddressTable> AddressTable { get; set; }
 
     }
 }

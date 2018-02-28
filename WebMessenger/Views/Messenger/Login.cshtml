@@ -20,10 +20,9 @@
 
 @using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
 
-    <br /> <label>Name</label> @Html.TextBoxFor(model => model.Name);
-    <br /> <label>Password</label> @Html.TextBoxFor(model => model.PW);
-    <br /> <label>Seed</label> @Html.TextBoxFor(model => model.Seed);
-
+    <br /> <label>Name</label> @Html.TextBoxFor(model => model.Name)
+    <br /> <label>Password</label> @Html.TextBoxFor(model => model.PW)
+    <br /> <label>Seed</label> @Html.TextBoxFor(model => model.Seed)
     <button type="submit">Register</button>
 
 }

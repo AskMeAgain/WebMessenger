@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "BouncyCastle/1.8.1": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -2904,6 +2913,18 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
+      "RestSharp/106.2.1": {
+        "type": "package",
+        "dependencies": {
+          "System.ValueTuple": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -5014,6 +5035,19 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "Tangle.Net/1.0.5": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.1",
+          "RestSharp": "106.2.1"
+        },
+        "compile": {
+          "lib/net461/Tangle.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Tangle.Net.dll": {}
+        }
+      },
       "WindowsAzure.Storage/8.1.4": {
         "type": "package",
         "dependencies": {
@@ -5032,6 +5066,17 @@
     }
   },
   "libraries": {
+    "BouncyCastle/1.8.1": {
+      "sha512": "r0w4ciJJ916V3dYRdtq8uF4Nz6oAv8Mia1JEAPKgDDRzMTcht8uK/Qam9WtvIg9SaFa+4OTox+GG6huB07nC1g==",
+      "type": "package",
+      "path": "bouncycastle/1.8.1",
+      "files": [
+        "BouncyCastle.1.8.1.nupkg.sha512",
+        "BouncyCastle.nuspec",
+        "Readme.txt",
+        "lib/BouncyCastle.Crypto.dll"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -8032,6 +8077,17 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.1.1.nupkg.sha512",
         "remotion.linq.nuspec"
+      ]
+    },
+    "RestSharp/106.2.1": {
+      "sha512": "YlL7/d6N0loTeI7BatX38snkSI/UhKSMPIWZ+rAxMMFM05QOKPySb43bNm/AUHmVca/FaNceOpgtZzY7Em8vNw==",
+      "type": "package",
+      "path": "restsharp/106.2.1",
+      "files": [
+        "RestSharp.106.2.1.nupkg.sha512",
+        "RestSharp.nuspec",
+        "lib/net452/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.dll"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -13092,6 +13148,16 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
+    "Tangle.Net/1.0.5": {
+      "sha512": "c7frLUt+fFjmvRcyheSeTazZSi2JG82CjNZv2d+bmjNfZtJI7M5UivnDVNWBuZm5QgFxDIZbsWQhoBxngj6+8A==",
+      "type": "package",
+      "path": "tangle.net/1.0.5",
+      "files": [
+        "lib/net461/Tangle.Net.dll",
+        "tangle.net.1.0.5.nupkg.sha512",
+        "tangle.net.nuspec"
+      ]
+    },
     "WindowsAzure.Storage/8.1.4": {
       "sha512": "W6ZZ0/o7+3Qb77mRAQyLjPudHG3OMeeQ4p9yY13PUdJArmRCx2cLMm5F4tpIjJXxzHC0ew0oK7DMDGILMdfCnw==",
       "type": "package",
@@ -13120,7 +13186,8 @@
       "Microsoft.AspNetCore.All >= 2.0.5",
       "Microsoft.AspNetCore.Session >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2",
+      "Tangle.Net >= 1.0.5"
     ]
   },
   "packageFolders": {
@@ -13183,6 +13250,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.0.2, )"
+          },
+          "Tangle.Net": {
+            "target": "Package",
+            "version": "[1.0.5, )"
           }
         },
         "imports": [
@@ -13192,5 +13263,27 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BouncyCastle 1.8.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BouncyCastle",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Tangle.Net 1.0.5' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Tangle.Net",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

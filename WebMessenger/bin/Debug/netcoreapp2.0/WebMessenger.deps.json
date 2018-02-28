@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "e531c305d00baddce899010831a73f4f436ee99a"
+    "signature": "d7386e1302160fada92712f63777c293ba551b1b"
   },
   "compilationOptions": {
     "defines": [
@@ -26,13 +26,22 @@
           "Microsoft.AspNetCore.All": "2.0.5",
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
+          "Tangle.Net": "1.0.5"
         },
         "runtime": {
           "WebMessenger.dll": {}
         },
         "compile": {
           "WebMessenger.dll": {}
+        }
+      },
+      "BouncyCastle/1.8.1": {
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -2524,6 +2533,17 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
+      "RestSharp/106.2.1": {
+        "dependencies": {
+          "System.ValueTuple": "4.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "runtimeTargets": {
           "runtime/debian.8-x64/native/_._": {
@@ -4040,6 +4060,18 @@
           "System.Xml.XPath": "4.3.0"
         }
       },
+      "Tangle.Net/1.0.5": {
+        "dependencies": {
+          "BouncyCastle": "1.8.1",
+          "RestSharp": "106.2.1"
+        },
+        "runtime": {
+          "lib/net461/Tangle.Net.dll": {}
+        },
+        "compile": {
+          "lib/net461/Tangle.Net.dll": {}
+        }
+      },
       "WindowsAzure.Storage/8.1.4": {
         "dependencies": {
           "Microsoft.Data.OData": "5.8.2",
@@ -4237,6 +4269,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "BouncyCastle/1.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r0w4ciJJ916V3dYRdtq8uF4Nz6oAv8Mia1JEAPKgDDRzMTcht8uK/Qam9WtvIg9SaFa+4OTox+GG6huB07nC1g==",
+      "path": "bouncycastle/1.8.1",
+      "hashPath": "bouncycastle.1.8.1.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
@@ -5470,6 +5509,13 @@
       "path": "remotion.linq/2.1.1",
       "hashPath": "remotion.linq.2.1.1.nupkg.sha512"
     },
+    "RestSharp/106.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YlL7/d6N0loTeI7BatX38snkSI/UhKSMPIWZ+rAxMMFM05QOKPySb43bNm/AUHmVca/FaNceOpgtZzY7Em8vNw==",
+      "path": "restsharp/106.2.1",
+      "hashPath": "restsharp.106.2.1.nupkg.sha512"
+    },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -6358,6 +6404,13 @@
       "sha512": "sha512-jw9oHHEIVW53mHY9PgrQa98Xo2IZ0ZjrpdOTmtvk+Rvg4tq7dydmxdNqUvJ5YwjDqhn75mBXWttWjiKhWP53LQ==",
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Tangle.Net/1.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c7frLUt+fFjmvRcyheSeTazZSi2JG82CjNZv2d+bmjNfZtJI7M5UivnDVNWBuZm5QgFxDIZbsWQhoBxngj6+8A==",
+      "path": "tangle.net/1.0.5",
+      "hashPath": "tangle.net.1.0.5.nupkg.sha512"
     },
     "WindowsAzure.Storage/8.1.4": {
       "type": "package",

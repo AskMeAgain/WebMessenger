@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using WebMessenger.Data;
 using WebMessenger.Models;
 using Microsoft.AspNetCore.Http;
+using Tangle.Net.Entity;
+using Tangle.Net.Cryptography;
 
 namespace WebMessenger.Controllers {
 
@@ -46,15 +48,12 @@ namespace WebMessenger.Controllers {
         public async Task<IActionResult> RegisterAsync(User user) {
 
             //first check if username is used!
-            bool entity = _context.User
-                .Any(m => m.Name == user.Name);
-            if (entity)
+            if (_context.User.Any(m => m.Name == user.Name))
                 return Content("Sorry Mate your username is used!");
 
+            _context.User.Add(user);
 
-            _context.Add(user);
             await generateAddressFromUserAsync(user);
-
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -68,19 +67,30 @@ namespace WebMessenger.Controllers {
             if (user == null)
                 return Content("empty!");
 
-            return View(user);
+            List<AddressTable> list = (from c in _context.AddressTable
+                                       where c.UserID == user.UserID
+                                       select c).ToList();
+
+            ViewModel model = new ViewModel() {
+                AddressList = list,
+                User = user
+            };
+
+            return View(model);
 
         }
 
         public async Task generateAddressFromUserAsync(User user) {
 
-            Address addr = new Address() {
+            var addressGenerator = new AddressGenerator(user.getSeed());
+
+            AddressTable addr = new AddressTable() {
                 Index = user.AddressIndex,
-                generatedAddress = "LOL TEST",
+                generatedAddress = addressGenerator.GetAddress(user.AddressIndex).ToString(),
                 UserID = user.UserID
             };
 
-            _context.Add(addr);
+            _context.AddressTable.Add(addr);
             await _context.SaveChangesAsync();
 
         }
