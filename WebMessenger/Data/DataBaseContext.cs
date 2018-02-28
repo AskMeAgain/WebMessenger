@@ -12,6 +12,7 @@ namespace WebMessenger.Data {
 
         public DbSet<User> User { get; set; }
         public DbSet<AddressTable> AddressTable { get; set; }
+        public DbSet<Connections> Connections { get; set; }
 
     }
 }

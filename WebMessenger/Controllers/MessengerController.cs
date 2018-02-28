@@ -53,7 +53,7 @@ namespace WebMessenger.Controllers {
 
             _context.User.Add(user);
 
-            await generateAddressFromUserAsync(user);
+            await generateAddressFromUserAsync(user,4);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -67,30 +67,80 @@ namespace WebMessenger.Controllers {
             if (user == null)
                 return Content("empty!");
 
-            List<AddressTable> list = (from c in _context.AddressTable
+            List<AddressTable> addrList = (from c in _context.AddressTable
                                        where c.UserID == user.UserID
                                        select c).ToList();
 
+            List<Connections> connList = (from c in _context.Connections
+                                          where (c.UserA_ == user || c.UserB_ == user) 
+                                          select c).ToList();
+
             ViewModel model = new ViewModel() {
-                AddressList = list,
-                User = user
+                AddressList = addrList,
+                User = user,
+                ConnectionList = connList
             };
 
             return View(model);
 
         }
 
-        public async Task generateAddressFromUserAsync(User user) {
+        public async Task<IActionResult> AddFriendAsync(User model) {
+
+            //Get both userIDs
+            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
+            User userB = await _context.User.SingleAsync(m => m.Name == model.Name);
+            User userA = await _context.User.SingleAsync(m => m.UserID == temp.UserID);
+
+            //Get Open addresses:
+            AddressTable addrA = await _context.AddressTable.FirstAsync(m => m.UserID == userA.UserID);
+            AddressTable addrB = await _context.AddressTable.FirstAsync(m => m.UserID == userB.UserID);
+
+            //set refreshCounter
+            byte counter = 0;
+
+            Connections conn = new Connections {
+                UserA_ = userA,
+                UserB_ = userB,
+                AddressA = addrA.generatedAddress,
+                AddressB = addrB.generatedAddress,
+                RefreshCounter = counter
+            };
+
+            _context.Connections.Add(conn);
+
+            //remove them out of the list
+            _context.AddressTable.Remove(addrA);
+            _context.AddressTable.Remove(addrB);
+
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Home");
+
+        }
+
+        public async Task generateAddressFromUserAsync(User user, int num) {
 
             var addressGenerator = new AddressGenerator(user.getSeed());
 
-            AddressTable addr = new AddressTable() {
-                Index = user.AddressIndex,
-                generatedAddress = addressGenerator.GetAddress(user.AddressIndex).ToString(),
-                UserID = user.UserID
-            };
+            int i;
 
-            _context.AddressTable.Add(addr);
+            for (i = 0; i < num; i++) {
+                AddressTable addr = new AddressTable() {
+                    Index = user.AddressIndex+i,
+                    generatedAddress = addressGenerator.GetAddress(user.AddressIndex+i).ToString(),
+                    UserID = user.UserID
+                };
+
+                _context.AddressTable.Add(addr);
+            }
+
+            user.AddressIndex += i;
+
+            var entity = _context.User.Find(user.UserID);
+            _context.Entry(entity).CurrentValues.SetValues(user);
+
             await _context.SaveChangesAsync();
 
         }

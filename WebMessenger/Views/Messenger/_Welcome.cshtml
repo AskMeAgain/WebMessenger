@@ -5,3 +5,12 @@
 
 Hello @Model.Name
 
+Add Friend:
+@using (Html.BeginForm("AddFriendAsync", "Messenger", FormMethod.Post)) {
+
+    <br /><label>Name</label> @Html.TextBoxFor(model => model.Name)
+    <button type="submit">Login</button>
+
+}
+
+

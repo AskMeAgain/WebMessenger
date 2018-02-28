@@ -13,7 +13,11 @@
     </div>
 
     <div id="right" style="float:right; width:50%;">
-        @Html.Partial("_DisplayTable", Model.AddressList)
+        @Html.Partial("_DisplayTable_AddressTable", Model.AddressList)
+
+        <br />
+
+        @Html.Partial("_DisplayTable_Connections", Model.ConnectionList)
     </div>
 
 </div>

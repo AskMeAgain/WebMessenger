@@ -8,6 +8,7 @@ namespace WebMessenger.Models {
 
         public User User { get; set; }
         public List<AddressTable> AddressList { get; set; }
+        public List<Connections> ConnectionList { get; set; }
 
     }
 }

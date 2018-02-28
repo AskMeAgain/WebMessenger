@@ -1,0 +1,36 @@
+﻿@model List<WebMessenger.Models.Connections>
+
+
+<center><h2>All your Connections</h2></center>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                User A
+            </th>
+            <th>
+                User B
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConnectionsID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressB)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
