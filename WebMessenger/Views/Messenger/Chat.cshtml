@@ -1,0 +1,26 @@
+﻿@model WebMessenger.Models.User_Chat
+@{
+    ViewData["Title"] = "Chat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<center>
+    <h1>Chat</h1>
+
+    @using (Html.BeginForm("Chat", "Messenger", FormMethod.Post)) {
+        @foreach (var item in Model.Friends) {
+            <input name="id" type="submit" id="@item.Name" value="@item.Name" />
+        }
+    }
+</center>
+<br /><br /><br />
+@{
+    if (!string.IsNullOrEmpty(Model.selectedChat)) {
+
+        <h2>Selected Chat: @Model.selectedChat</h2>
+
+        @Html.Partial("_DisplayChat", Model.Chat);
+    }
+}
+
+
+

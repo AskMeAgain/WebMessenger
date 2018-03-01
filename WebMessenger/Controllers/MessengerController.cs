@@ -82,7 +82,7 @@ namespace WebMessenger.Controllers {
         private List<Connections> getAllConnections(User user) {
             return (from c in _context.Connections
                     where (c.UserA_ == user || c.UserB_ == user)
-                    select c).ToList();
+                    select c).Include("UserA_").Include("UserB_").ToList();
         }
 
         private List<AddressTable> getAllAddressTable(User user) {
@@ -151,32 +151,48 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public ActionResult Chat() {
+        public ActionResult Chat(string id) {
+
+            List<User> userList = getFriends();
+
+            List<string> chatList = new List<string>();
+
+            User_Chat temp = new User_Chat {
+                Chat = chatList,
+                selectedChat = id,
+                Friends = userList
+            };
+
+            return View(temp);
+
+        }
+
+        public ActionResult DisplayChat(string name) {
+
+            return Content("COOL CHAT" + name);
+
+        }
+
+        private List<User> getFriends() {
 
             //get user first
             User thisUser = HttpContext.Session.GetObjectFromJson<User>("User");
 
-            if (string.IsNullOrEmpty(thisUser.Name))
-                return Content("User is NULL!");
-
             //get all friends
             List<Connections> connList = getAllConnections(thisUser);
-
-            if (connList.Count == 0)
-                return Content("connectionLIST IS EMPTY!");
 
             List<User> userList = new List<User>();
 
             foreach (Connections conn in connList) {
 
-                //TODO
                 if (conn.UserA_.Name == thisUser.Name)
                     userList.Add(conn.UserB_);
                 else
                     userList.Add(conn.UserA_);
             }
 
-            return View(userList);
+            return userList;
+
         }
 
     }
