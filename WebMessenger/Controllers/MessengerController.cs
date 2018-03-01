@@ -153,15 +153,23 @@ namespace WebMessenger.Controllers {
 
         public ActionResult Chat() {
 
-
             //get user first
             User thisUser = HttpContext.Session.GetObjectFromJson<User>("User");
 
+            if (string.IsNullOrEmpty(thisUser.Name))
+                return Content("User is NULL!");
+
             //get all friends
             List<Connections> connList = getAllConnections(thisUser);
+
+            if (connList.Count == 0)
+                return Content("connectionLIST IS EMPTY!");
+
             List<User> userList = new List<User>();
 
             foreach (Connections conn in connList) {
+
+                //TODO
                 if (conn.UserA_.Name == thisUser.Name)
                     userList.Add(conn.UserB_);
                 else
