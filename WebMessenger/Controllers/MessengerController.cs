@@ -53,7 +53,7 @@ namespace WebMessenger.Controllers {
 
             _context.User.Add(user);
 
-            await generateAddressFromUserAsync(user,4);
+            await generateAddressFromUserAsync(user, 4);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -66,14 +66,8 @@ namespace WebMessenger.Controllers {
 
             if (user == null)
                 return Content("empty!");
-
-            List<AddressTable> addrList = (from c in _context.AddressTable
-                                       where c.UserID == user.UserID
-                                       select c).ToList();
-
-            List<Connections> connList = (from c in _context.Connections
-                                          where (c.UserA_ == user || c.UserB_ == user) 
-                                          select c).ToList();
+            List<AddressTable> addrList = getAllAddressTable(user);
+            List<Connections> connList = getAllConnections(user);
 
             ViewModel model = new ViewModel() {
                 AddressList = addrList,
@@ -83,6 +77,18 @@ namespace WebMessenger.Controllers {
 
             return View(model);
 
+        }
+
+        private List<Connections> getAllConnections(User user) {
+            return (from c in _context.Connections
+                    where (c.UserA_ == user || c.UserB_ == user)
+                    select c).ToList();
+        }
+
+        private List<AddressTable> getAllAddressTable(User user) {
+            return (from c in _context.AddressTable
+                    where c.UserID == user.UserID
+                    select c).ToList();
         }
 
         public async Task<IActionResult> MakeConnectionAsync(User model) {
@@ -128,8 +134,8 @@ namespace WebMessenger.Controllers {
 
             for (i = 0; i < num; i++) {
                 AddressTable addr = new AddressTable() {
-                    Index = user.AddressIndex+i,
-                    generatedAddress = addressGenerator.GetAddress(user.AddressIndex+i).ToString(),
+                    Index = user.AddressIndex + i,
+                    generatedAddress = addressGenerator.GetAddress(user.AddressIndex + i).ToString(),
                     UserID = user.UserID
                 };
 
@@ -145,6 +151,25 @@ namespace WebMessenger.Controllers {
 
         }
 
+        public ActionResult Chat() {
+
+
+            //get user first
+            User thisUser = HttpContext.Session.GetObjectFromJson<User>("User");
+
+            //get all friends
+            List<Connections> connList = getAllConnections(thisUser);
+            List<User> userList = new List<User>();
+
+            foreach (Connections conn in connList) {
+                if (conn.UserA_.Name == thisUser.Name)
+                    userList.Add(conn.UserB_);
+                else
+                    userList.Add(conn.UserA_);
+            }
+
+            return View(userList);
+        }
 
     }
 }
