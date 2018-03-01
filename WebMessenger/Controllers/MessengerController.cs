@@ -9,6 +9,8 @@ using WebMessenger.Models;
 using Microsoft.AspNetCore.Http;
 using Tangle.Net.Entity;
 using Tangle.Net.Cryptography;
+using Tangle.Net.Repository;
+using RestSharp;
 
 namespace WebMessenger.Controllers {
 
@@ -157,6 +159,10 @@ namespace WebMessenger.Controllers {
 
             List<string> chatList = new List<string>();
 
+            //if its not null we are looking into a chat
+            if (!string.IsNullOrEmpty(id))
+                chatList = getChat(id);
+
             User_Chat temp = new User_Chat {
                 Chat = chatList,
                 selectedChat = id,
@@ -167,11 +173,20 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public ActionResult DisplayChat(string name) {
+        public List<string> getChat(string name) {
 
-            return Content("COOL CHAT" + name);
+            List<string> chatList = new List<string>();
+
+            var repository = new RestIotaRepository(new RestClient("https://localhost:14265"));
+
+
+
+            chatList.Add("TODO    TODO   TODO   WE do this later");
+
+            return chatList;
 
         }
+
 
         private List<User> getFriends() {
 

@@ -16,7 +16,8 @@
 @{
     if (!string.IsNullOrEmpty(Model.selectedChat)) {
 
-        <h2>Selected Chat: @Model.selectedChat</h2>
+        <h2>@Model.selectedChat</h2>
+        <br />
 
         @Html.Partial("_DisplayChat", Model.Chat);
     }
