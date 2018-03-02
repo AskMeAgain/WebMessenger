@@ -12,34 +12,39 @@ namespace WebMessenger.Data {
 
             context.Database.EnsureCreated();
 
-            // Look for any students.
-            if (context.User.Any()) {
-                return;   // DB has been seeded
-            }
+            //ABCUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQE9
+            //ZZCUCEXFVHZNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXZVHJNJHTQQEQEIROUCEXFVHJNJHTZQEQE9
+            //ABCUCEXFVHXNJHTQQEQEIROUCEXFVHJNXHTQQEXEIROUCEXFVXJNJHTQQEQEIROUCEXFVHJNJHTQQEQEX
 
-            var User = new User[]
-            {
-            new User{AddressIndex = 0, PW="asd", Name="connA",Seed = "ABCUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQE9"},
-            new User{AddressIndex = 0, PW="asd",Name="connB",Seed = "ABCUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQE9"},
-            };
 
-            foreach (User s in User) 
-                context.User.Add(s);
+            //// Look for any students.
+            //if (context.User.Any()) {
+            //    return;   // DB has been seeded
+            //}
 
-            var Address = new AddressTable[] {
-                new AddressTable{Index = 0, generatedAddress = "MRHHNDWNDHXXFSKHMXWMKHCZIEYIXRWEKPSIQENJUBSOIKPOENDRA9EZUJXVLQHPUSRIHGWTAXXQLIVKB", UserID = User[0].UserID },
-                new AddressTable{Index = 1, generatedAddress = "XAXFKQO9TEEQNRYZLRSSBRPQHZ9TJTBCNLPOTSGFNYWKSLJEMASQHFBSJBHNGIWCDMDPLHUPHYIFICMWZ", UserID = User[0].UserID },
-                new AddressTable{Index = 2, generatedAddress = "BXIGYMFVFMEXBGNCPPQ9LLFHNYQGBSBSTHWKKICBDZJTEQNWEV9XCTBYGRJFDVJKGIVKBJBTJXCHRRZZW", UserID = User[0].UserID },
+            //var User = new User[]
+            //{
+            //new User{AddressIndex = 0, PW="asd", Name="connA",Seed = "ABCUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQE9"},
+            //new User{AddressIndex = 0, PW="asd",Name="connB",Seed = "ABCUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQEIROUCEXFVHJNJHTQQEQE9"},
+            //};
 
-                new AddressTable{Index = 0, generatedAddress = "MRHHNDWNDHXXFSKHMXWMKHCZIEYIXRWEKPSIQENJUBSOIKPOENDRA9EZUJXVLQHPUSRIHGWTAXXQLIVKB", UserID = User[1].UserID },
-                new AddressTable{Index = 1, generatedAddress = "XAXFKQO9TEEQNRYZLRSSBRPQHZ9TJTBCNLPOTSGFNYWKSLJEMASQHFBSJBHNGIWCDMDPLHUPHYIFICMWZ", UserID = User[1].UserID },
-                new AddressTable{Index = 2, generatedAddress = "BXIGYMFVFMEXBGNCPPQ9LLFHNYQGBSBSTHWKKICBDZJTEQNWEV9XCTBYGRJFDVJKGIVKBJBTJXCHRRZZW", UserID = User[1].UserID }
-            };
+            //foreach (User s in User) 
+            //    context.User.Add(s);
 
-            foreach (AddressTable s in Address)
-                context.AddressTable.Add(s);
+            //var Address = new AddressTable[] {
+            //    new AddressTable{Index = 0, generatedAddress = "MRHHNDWNDHXXFSKHMXWMKHCZIEYIXRWEKPSIQENJUBSOIKPOENDRA9EZUJXVLQHPUSRIHGWTAXXQLIVKB", UserID = User[0].UserID },
+            //    new AddressTable{Index = 1, generatedAddress = "XAXFKQO9TEEQNRYZLRSSBRPQHZ9TJTBCNLPOTSGFNYWKSLJEMASQHFBSJBHNGIWCDMDPLHUPHYIFICMWZ", UserID = User[0].UserID },
+            //    new AddressTable{Index = 2, generatedAddress = "BXIGYMFVFMEXBGNCPPQ9LLFHNYQGBSBSTHWKKICBDZJTEQNWEV9XCTBYGRJFDVJKGIVKBJBTJXCHRRZZW", UserID = User[0].UserID },
 
-            context.SaveChanges();
+            //    new AddressTable{Index = 0, generatedAddress = "MRHHNDWNDHXXFSKHMXWMKHCZIEYIXRWEKPSIQENJUBSOIKPOENDRA9EZUJXVLQHPUSRIHGWTAXXQLIVKB", UserID = User[1].UserID },
+            //    new AddressTable{Index = 1, generatedAddress = "XAXFKQO9TEEQNRYZLRSSBRPQHZ9TJTBCNLPOTSGFNYWKSLJEMASQHFBSJBHNGIWCDMDPLHUPHYIFICMWZ", UserID = User[1].UserID },
+            //    new AddressTable{Index = 2, generatedAddress = "BXIGYMFVFMEXBGNCPPQ9LLFHNYQGBSBSTHWKKICBDZJTEQNWEV9XCTBYGRJFDVJKGIVKBJBTJXCHRRZZW", UserID = User[1].UserID }
+            //};
+
+            //foreach (AddressTable s in Address)
+            //    context.AddressTable.Add(s);
+
+            //context.SaveChanges();
 
 
 

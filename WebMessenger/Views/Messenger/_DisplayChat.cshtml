@@ -9,3 +9,9 @@
         @s<br />
     }
 }
+
+@using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
+    <input type="text" name="Message" id="Message" />
+
+    <input type="submit" value="Send" />
+}

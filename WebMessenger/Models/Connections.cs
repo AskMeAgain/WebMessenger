@@ -15,13 +15,5 @@ namespace WebMessenger.Models
         public User UserA_ { get; set; }
         public User UserB_ { get; set; }
 
-        //public string getAddressA() {
-        //    return AddressA.Substring(0, 3) + " [....] " + AddressA.Substring(AddressA.Count()-3 , AddressA.Count());
-        //}
-
-        //public string getAddressB() {
-        //    return AddressB.Substring(0, 3) + " [....] " + AddressB.Substring(AddressB.Count() - 3, AddressB.Count());
-        //}
-
     }
 }

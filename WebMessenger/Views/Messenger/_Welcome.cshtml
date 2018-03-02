@@ -1,9 +1,4 @@
 ﻿@model WebMessenger.Models.User;
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-Hello @Model.Name
 
 <h2>Add Friend:</h2>
 
@@ -12,7 +7,7 @@ Hello @Model.Name
 @using (Html.BeginForm("MakeConnectionAsync", "Messenger", FormMethod.Post)) {
 
     <br /><label>Name</label> @Html.TextBoxFor(model => model.Name)
-    <button type="submit">Add Friend</button>
+    <button type="submit" value="">Add Friend</button>
 
 }
 

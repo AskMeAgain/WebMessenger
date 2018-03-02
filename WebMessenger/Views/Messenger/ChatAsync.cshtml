@@ -6,7 +6,7 @@
 <center>
     <h1>Chat</h1>
 
-    @using (Html.BeginForm("Chat", "Messenger", FormMethod.Post)) {
+    @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
         @foreach (var item in Model.Friends) {
             <input name="id" type="submit" id="@item.Name" value="@item.Name" />
         }
@@ -20,6 +20,7 @@
         <br />
 
         @Html.Partial("_DisplayChat", Model.Chat);
+
     }
 }
 

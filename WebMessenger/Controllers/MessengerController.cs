@@ -11,6 +11,8 @@ using Tangle.Net.Entity;
 using Tangle.Net.Cryptography;
 using Tangle.Net.Repository;
 using RestSharp;
+using Tangle.Net.ProofOfWork;
+using Tangle.Net.Utils;
 
 namespace WebMessenger.Controllers {
 
@@ -153,15 +155,21 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public ActionResult Chat(string id) {
+        public async Task<ActionResult> ChatAsync(string id) {
 
             List<User> userList = getFriends();
 
             List<string> chatList = new List<string>();
 
             //if its not null we are looking into a chat
-            if (!string.IsNullOrEmpty(id))
-                chatList = getChat(id);
+            if (!string.IsNullOrEmpty(id)) {
+
+                //store selected User
+                User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
+                HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
+
+                chatList = await getChatAsync(id);
+            }
 
             User_Chat temp = new User_Chat {
                 Chat = chatList,
@@ -173,20 +181,31 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public List<string> getChat(string name) {
+        public async Task<List<string>> getChatAsync(string name) {
 
             List<string> chatList = new List<string>();
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+            User other = _context.User.Single(m => m.Name.Equals(name));
 
-            var repository = new RestIotaRepository(new RestClient("https://localhost:14265"));
+
+            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+
+            //get connection of users
+            Connections conn = await getConnectionFromTwoIDsAsync(local.UserID, other.UserID);
 
 
+            List<Address> addresses = new List<Address>() {
+                new Address(conn.AddressA),
+                new Address(conn.AddressB)
+            };
+
+            
 
             chatList.Add("TODO    TODO   TODO   WE do this later");
 
             return chatList;
 
         }
-
 
         private List<User> getFriends() {
 
@@ -210,5 +229,42 @@ namespace WebMessenger.Controllers {
 
         }
 
+        public async Task<Connections> getConnectionFromTwoIDsAsync(int a, int b) {
+
+            return await _context.Connections.Include("UserA_").Include("UserB_").SingleAsync(
+                m => ((m.UserA_.UserID == a && m.UserB_.UserID == b) || (m.UserB_.UserID == a && m.UserA_.UserID == b)));
+
+        }
+
+        public async Task<IActionResult> SendMessageAsync(string Message) {
+
+            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+
+            User sender = HttpContext.Session.GetObjectFromJson<User>("User");
+            User receiver = HttpContext.Session.GetObjectFromJson<User>("SelectedUser");
+
+            Connections conn = await getConnectionFromTwoIDsAsync(sender.UserID, receiver.UserID);
+
+            string sendingAddress = (conn.UserA_.UserID == sender.UserID) ? conn.AddressB : conn.AddressA;
+
+            Transfer trans = new Transfer() {
+                Address = new Address(sendingAddress) { Balance = 0 },
+                Message = TryteString.FromAsciiString(Message),
+                Tag = new Tag("CSHARP"),
+                Timestamp = Timestamp.UnixSecondsTimestamp
+            };
+
+            Bundle bundle = new Bundle();
+
+            bundle.AddTransfer(trans);
+
+            bundle.Finalize();
+            bundle.Sign();
+
+            //sending the message
+            var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
+
+            return RedirectToAction("ChatAsync", new {id = receiver.Name });
+        }
     }
 }
