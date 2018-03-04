@@ -4,40 +4,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h2>Login</h2>
-
-@using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
-
-    <br /><label>Name</label> @Html.TextBoxFor(model => model.Name)
-    <br /><label>Password</label> @Html.TextBoxFor(model => model.PW)
-    <button type="submit">Login</button>
-
-}
-
-
-
-<h2>Register</h2>
-
-@using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
-
-    <br /> <label>Name</label> @Html.TextBoxFor(model => model.Name)
-    <br /> <label>Password</label> @Html.TextBoxFor(model => model.PW)
-    <br /> <label>Seed</label> @Html.TextBoxFor(model => model.Seed)
-    <button type="submit">Register</button>
-
-}
-
-<table style="width:100%">
+<table>
     <tr>
         <th>Login</th>
-        <th>Lastname</th>
+        <th>Register</th>
     </tr>
     <tr>
-        <td>Jill</td>
-        <td>Smith</td>
+        <td>
+            <div>
+                @using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td>@Html.TextBoxFor(model => model.Name)</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td> @Html.TextBoxFor(model => model.PW)</td>
+                        </tr>
+                        <tr>
+                            <td><br /></td>
+                            <td><br /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="40">
+                                <button class="submitButtonTable" type="submit">Login</button>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </td>
+        <td>
+            <div>
+                @using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td>@Html.TextBoxFor(model => model.Name)</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td> @Html.TextBoxFor(model => model.PW)</td>
+                        </tr>
+                        <tr>
+                            <td>Seed</td>
+                            <td> @Html.TextBoxFor(model => model.Seed)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" height="40">
+                                <button class="submitButtonTable" type="submit">Register</button>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </td>
     </tr>
 
 </table>
-
-
