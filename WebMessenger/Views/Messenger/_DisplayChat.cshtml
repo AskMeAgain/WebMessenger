@@ -1,14 +1,30 @@
-﻿@model List<string>
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<WebMessenger.Models.ChatEntry>
 
 
-@{
-    foreach (string s in Model) {
-        @s<br />
+
+<table style="width:100%" border="1">
+    <tr>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @{
+
+
+        foreach (WebMessenger.Models.ChatEntry s in Model) {
+            string link = "https://thetangle.org/transaction/" + s.TransactionID;
+
+            <tr>
+                <td><a href="@link">link</a></td>
+                <td><lable>Message: </lable> @s.Message</td>
+            </tr>
+        }
     }
-}
+
+</table>
+
+<br /><br /><br />
+
 
 @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
     <input type="text" name="Message" id="Message" />

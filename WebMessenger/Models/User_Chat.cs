@@ -9,7 +9,7 @@ namespace WebMessenger.Models
     {
         public string selectedChat { get; set; }
         public List<User> Friends { get; set; }
-        public List<string> Chat { get; set; }
+        public List<ChatEntry> Chat { get; set; }
 
     }
 }

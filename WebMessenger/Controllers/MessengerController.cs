@@ -159,7 +159,7 @@ namespace WebMessenger.Controllers {
 
             List<User> userList = getFriends();
 
-            List<string> chatList = new List<string>();
+            List<ChatEntry> chatEntrys = new List<ChatEntry>();
 
             //if its not null we are looking into a chat
             if (!string.IsNullOrEmpty(id)) {
@@ -168,11 +168,11 @@ namespace WebMessenger.Controllers {
                 User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
                 HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
 
-                chatList = await getChatAsync(id);
+                chatEntrys = await getChatAsync(id);
             }
 
             User_Chat temp = new User_Chat {
-                Chat = chatList,
+                Chat = chatEntrys,
                 selectedChat = id,
                 Friends = userList
             };
@@ -181,9 +181,10 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<List<string>> getChatAsync(string name) {
+        public async Task<List<ChatEntry>> getChatAsync(string name) {
 
-            List<string> chatList = new List<string>();
+            List<ChatEntry> chatEntrys = new List<ChatEntry>();
+
             User local = HttpContext.Session.GetObjectFromJson<User>("User");
             User other = _context.User.Single(m => m.Name.Equals(name));
 
@@ -199,11 +200,18 @@ namespace WebMessenger.Controllers {
                 new Address(conn.AddressB)
             };
 
-            
+            var hashList = repository.FindTransactionsByAddresses(addresses);
 
-            chatList.Add("TODO    TODO   TODO   WE do this later");
+            List<Bundle> bundles = repository.GetBundles(hashList.Hashes, true);
 
-            return chatList;
+            foreach (Bundle b in bundles) {
+
+                    ChatEntry entry = new ChatEntry(b);
+                    chatEntrys.Add(entry);
+
+            }
+
+            return chatEntrys;
 
         }
 
@@ -264,7 +272,7 @@ namespace WebMessenger.Controllers {
             //sending the message
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
-            return RedirectToAction("ChatAsync", new {id = receiver.Name });
+            return RedirectToAction("ChatAsync", new { id = receiver.Name });
         }
     }
 }
