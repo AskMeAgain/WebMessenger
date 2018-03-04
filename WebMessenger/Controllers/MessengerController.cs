@@ -206,10 +206,18 @@ namespace WebMessenger.Controllers {
 
             foreach (Bundle b in bundles) {
 
-                    ChatEntry entry = new ChatEntry(b);
-                    chatEntrys.Add(entry);
+                string entryName = "";
 
+                if (b.Transactions[0].Address.ToString() == conn.AddressA)
+                    entryName = conn.UserB_.Name;
+                else
+                    entryName = conn.UserA_.Name;
+
+                ChatEntry entry = new ChatEntry(b, entryName);
+                chatEntrys.Add(entry);
             }
+
+            List<ChatEntry> sortedList = chatEntrys.OrderBy(o => o.TimeStamp).ToList();
 
             return chatEntrys;
 

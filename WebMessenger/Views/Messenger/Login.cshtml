@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Login</h2>
 
 @using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
@@ -14,7 +15,7 @@
 
 }
 
-<br /><br /><br />
+
 
 <h2>Register</h2>
 
@@ -26,5 +27,17 @@
     <button type="submit">Register</button>
 
 }
+
+<table style="width:100%">
+    <tr>
+        <th>Login</th>
+        <th>Lastname</th>
+    </tr>
+    <tr>
+        <td>Jill</td>
+        <td>Smith</td>
+    </tr>
+
+</table>
 
 
