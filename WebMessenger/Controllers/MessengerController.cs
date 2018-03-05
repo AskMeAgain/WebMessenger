@@ -167,8 +167,13 @@ namespace WebMessenger.Controllers {
                 //store selected User
                 User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
                 HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
+                //chatEntrys = await getChatAsync(id);    
 
-                chatEntrys = await getChatAsync(id);
+                chatEntrys = new List<ChatEntry>() {
+                    new ChatEntry(),
+                    new ChatEntry(),
+                };
+
             }
 
             User_Chat temp = new User_Chat {

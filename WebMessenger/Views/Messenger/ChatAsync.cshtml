@@ -3,33 +3,30 @@
     ViewData["Title"] = "Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.Partial("_NavBar")
 
-@Html.Partial("_NavBar");
+<link href="/css/Messenger.css" rel="Stylesheet" type="text/css" />
 
-@Html.Partial("_ChatFunctionality");
-@Html.Partial("_ChatDisplay", Model.Chat);
+<div class="layout">
+    <div class="function">
+        <div class="buttonGroup">
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+            <button type="button">Click Me!</button><br />
+        </div>
+    </div>
+    <div class="chat">
+        @Html.Partial("_ChatDisplay", Model)
+    </div>
+</div>
 
 
-<center>
-    <h1>Chat</h1>
-
-    @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
-        @foreach (var item in Model.Friends) {
-            <input name="id" type="submit" id="@item.Name" value="@item.Name" />
-        }
-    }
-</center>
-<br /><br /><br />
-@{
-    if (!string.IsNullOrEmpty(Model.selectedChat)) {
-
-        <h2>@Model.selectedChat</h2>
-        <br />
-
-        @Html.Partial("_DisplayChat", Model.Chat);
-
-    }
-}
 
 
 
