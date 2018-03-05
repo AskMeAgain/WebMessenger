@@ -38,7 +38,7 @@ namespace WebMessenger.Controllers {
 
             HttpContext.Session.SetObjectAsJson("User", entity);
 
-            return RedirectToAction("Home");
+            return RedirectToAction("ChatAsync");
 
 
         }

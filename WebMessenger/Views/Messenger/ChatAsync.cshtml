@@ -3,6 +3,13 @@
     ViewData["Title"] = "Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@Html.Partial("_NavBar");
+
+@Html.Partial("_ChatFunctionality");
+@Html.Partial("_ChatDisplay", Model.Chat);
+
+
 <center>
     <h1>Chat</h1>
 
