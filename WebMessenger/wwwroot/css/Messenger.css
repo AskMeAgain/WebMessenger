@@ -9,26 +9,45 @@
 
 .function {
     float: left;
-    background-color: cadetblue;
+    background-color: cornflowerblue;
     width: 20%;
     height: 100%;
 }
 
 .chat {
     float: left;
+    width: 80%;
+    background-color: orange;
 }
 
 .buttonGroup {
-    text-align:center;
-    position:relative; 
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    text-align: center;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
     .buttonGroup button {
-    width:200px;
-    height:50px;
-    
-    
+        width: 200px;
+        height: 50px;
     }
+
+
+
+.input {
+    position: absolute;
+    bottom: 10px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+#inputField {
+    width: 70%;
+}
+
+.display {
+    position: absolute;
+    bottom: 60px;
+    margin-left: 10px;
+}

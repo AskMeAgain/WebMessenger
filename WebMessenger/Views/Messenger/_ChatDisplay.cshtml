@@ -2,11 +2,13 @@
 @model WebMessenger.Models.User_Chat
 
 @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
-    @if (Model.Friends.Count > 0) {
-        @foreach (var item in Model.Friends) {
-            <input class="addFriendButton" name="id" type="submit" id="@item.Name" value="@item.Name" /> <input class="addFriendButton" name="id" type="submit" id="@item.Name" value="@item.Name" />
+    <div class="friends">
+        @if (Model.Friends.Count > 0) {
+            @foreach (var item in Model.Friends) {
+                <input class="addFriendButton" name="id" type="submit" id="@item.Name" value="@item.Name" /> <input class="addFriendButton" name="id" type="submit" id="@item.Name" value="@item.Name" />
+            }
         }
-    }
+    </div>
 }
 
 
@@ -37,9 +39,9 @@
         <div class="input">
 
             @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
-                <input type="text" name="Message" id="Message" />
+                <input id="inputField" type="text" name="Message" id="Message" />
 
-                <input type="submit" value="Send" />
+                <input  type="submit" value="Send" />
             }
         </div>
     }
