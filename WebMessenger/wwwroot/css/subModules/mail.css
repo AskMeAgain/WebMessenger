@@ -25,18 +25,41 @@
 }
 
 .Chat_FunctionGroup {
-    margin-top: 35px;
-    margin-left:10px;
-    line-height:30px;
+    margin-top: 60px;
+    margin-left: 10px;
+    line-height: 40px;
 }
 
 .Chat_SubmitButton {
-    width:25%;
-    position:relative;
-    right:-2px;
-    bottom: 0px;
+    display:block;
+    width: 100px;
+    position: absolute;
+    left:16%;
+    height: 30px;
+    margin-left:50px;
 }
 
 .Chat_Inputfunction {
-    width:70%;
+    display:block;
+    float:left;
+    width: 60%;
+    height: 31px;
 }
+
+.Chat_DropDown {
+    transition: all 0.2s ease-out;
+    outline-style: solid;
+    outline-color: cornflowerblue;
+    text-decoration-style: none;
+    border: none;
+    color:cornflowerblue;
+    font-weight:bold;
+    font-family:Calibri;
+    font-size:1.3em;
+}
+
+    .Chat_DropDown:hover {
+        outline-color:white;
+        background-color:cornflowerblue;
+        color:white;   
+    }

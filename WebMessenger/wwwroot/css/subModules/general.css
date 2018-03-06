@@ -2,19 +2,30 @@
     font-family: Calibri;
     color: white;
     display: block;
-    font-weight:bold;
+    font-weight: bold;
 }
 
-#_Inputfield:hover {
-    background-color: cornflowerblue;
-    border-style: solid;
-    border-color: white;
+button {
     color: white;
+    text-decoration-line: none;
+    outline: 2px solid white;
+    border: none;
+    background-color: cornflowerblue;
+    transition: all 0.2s ease-out;
+    font-family: Calibri;
+    font-weight: bold;
 }
 
-#_Inputfield {
+    button:hover {
+        background-color: white;
+        color: cornflowerblue;
+    }
+
+
+/*CUSTOM CLASSES*/
+
+.Inputfield {
     transition: all 0.2s ease-out;
-    height: 25px;
     text-align: left;
     background-color: white;
     border: none;
@@ -27,7 +38,30 @@
     border-color: cornflowerblue;
 }
 
+    .Inputfield:hover {
+        background-color: cornflowerblue;
+        border-style: solid;
+        border-color: white;
+        color: white;
+    }
+
 .SubHeadings {
-    text-align:center;
+    text-align: center;
     font-size: 2.5em;
 }
+
+.GeneralButton {
+    color: white;
+    text-decoration-line: none;
+    outline: 2px solid white;
+    border: none;
+    background-color: cornflowerblue;
+    transition: all 0.2s ease-out;
+    font-family: Calibri;
+    font-weight: bold;
+}
+
+    .GeneralButton:hover {
+        background-color: white;
+        color: cornflowerblue;
+    }

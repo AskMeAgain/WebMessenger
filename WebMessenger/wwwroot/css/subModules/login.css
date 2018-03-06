@@ -49,19 +49,8 @@
         bottom: -10px;
         height: 55px;
         width: 130px;
-        color: white;
         font-size: 1.4em;
-        text-decoration-line: none;
-        outline: 2px solid white;
-        border: none;
-        background-color: cornflowerblue;
-        transition: all 0.2s ease-out;
     }
-
-        .Login_inputRow button:hover {
-            background-color: white;
-            color: cornflowerblue;
-        }
 
 .Login_Smaller {
     margin-top: 10px;

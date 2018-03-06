@@ -16,11 +16,11 @@
 
                 <div class="Login_inputRow">
                     <label>Name</label>
-                    @Html.TextBoxFor(model => model.Name, new { id = "_Inputfield"})
+                    @Html.TextBoxFor(model => model.Name, new { @class = "Inputfield" })
                 </div>
                 <div class="Login_inputRow">
                     <label>Password</label>
-                    @Html.TextBoxFor(model => model.PW, new { id = "_Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.PW, new { @class = "Inputfield", type = "password" })
                 </div>
                 <div class="Login_inputRow">
                     <button type="submit">Login</button>
@@ -35,17 +35,17 @@
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Name</label>
-                    @Html.TextBoxFor(model => model.Name, new { id = "_Inputfield"})
+                    @Html.TextBoxFor(model => model.Name, new { @class = "Inputfield" })
                 </div>
 
-                <div class="Login_inputRow Login_Smaller" >
+                <div class="Login_inputRow Login_Smaller">
                     <label>Password</label>
-                    @Html.TextBoxFor(model => model.PW, new { id = "_Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.PW, new { @class = "Inputfield", type = "password" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Seed</label>
-                    @Html.TextBoxFor(model => model.Seed, new { id = "_Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.Seed, new { @class = "Inputfield", type = "password" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
