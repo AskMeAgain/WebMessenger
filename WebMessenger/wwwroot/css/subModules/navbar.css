@@ -32,6 +32,8 @@
     transition: all 0.2s ease-out;
     outline: 4px solid white;
     outline-offset: 0px;
+    font-family:Calibri;
+    font-weight:bold;
 }
 
     .NavBar_Button:hover {

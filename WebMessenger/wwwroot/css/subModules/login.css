@@ -39,6 +39,7 @@
 }
 
     .Login_inputRow input {
+        transition: all 0.2s ease-out;
         width: 90%;
         height: 25px;
         text-align: left;
@@ -53,12 +54,12 @@
         border-color: cornflowerblue;
     }
 
-    .Login_inputRow input:hover {
-        background-color:cornflowerblue;     
-        border-style:solid;
-        border-color:white;
-        color:white;
-    }
+        .Login_inputRow input:hover {
+            background-color: cornflowerblue;
+            border-style: solid;
+            border-color: white;
+            color: white;
+        }
 
     .Login_inputRow label {
         font-size: 1.4em;
@@ -84,3 +85,7 @@
             background-color: white;
             color: cornflowerblue;
         }
+
+.Login_Smaller {
+    margin-top: 10px;
+}
