@@ -44,9 +44,7 @@ namespace WebMessenger.Controllers {
         }
 
         public ActionResult Login() {
-
             return View();
-
         }
 
         public async Task<IActionResult> RegisterAsync(User user) {
@@ -157,6 +155,10 @@ namespace WebMessenger.Controllers {
 
         public async Task<ActionResult> ChatAsync(string id) {
 
+            if (HttpContext.Session.GetObjectFromJson<User>("User") == null)
+                return RedirectToAction("Login");
+
+
             List<User> userList = getFriends();
 
             List<ChatEntry> chatEntrys = new List<ChatEntry>();
@@ -167,11 +169,17 @@ namespace WebMessenger.Controllers {
                 //store selected User
                 User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
                 HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
-                //chatEntrys = await getChatAsync(id);    
+                //chatEntrys = await getChatAsync(id);
 
                 chatEntrys = new List<ChatEntry>() {
                     new ChatEntry(),
                     new ChatEntry(),
+                    new ChatEntry(),
+                    new ChatEntry(),
+                    new ChatEntry(),
+                    new ChatEntry(),
+                    new ChatEntry(),
+                    new ChatEntry()
                 };
 
             }

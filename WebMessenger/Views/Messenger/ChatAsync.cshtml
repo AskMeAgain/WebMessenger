@@ -9,17 +9,33 @@
 
 <div class="layout">
     <div class="function">
-        <div class="buttonGroup">
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
-            <button type="button">Click Me!</button><br />
+
+        <label id="headingText">Mail</label>
+
+        <div id="addFriend">
+            <label class="subHeading">Add Friend</label>
+            @using (Html.BeginForm("AddFriendAsync", "Messenger", FormMethod.Post)) {
+                <input type="text" name="Name" id="Name" />
+                <input id="submitButton" type="submit" value="Add Friend" />
+            }
         </div>
+
+        <div id="selectFriend">
+            <label class="subHeading">Select Chat</label>
+            @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
+                <select id="id" name="id">
+                    @foreach (User user in Model.Friends) {
+                        <option value="@user.Name">@user.Name</option>
+                    }
+                </select>
+                <input id="submitButton" type="submit" value="Show Chat" />
+
+            }
+
+        </div>
+
+
+
     </div>
     <div class="chat">
         @Html.Partial("_ChatDisplay", Model)
