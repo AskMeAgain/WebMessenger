@@ -52,13 +52,6 @@
     right: 0px;
 }
 
-
-
-
-
-
-
-
 #input {
     position: absolute;
     bottom: 10px;
@@ -84,18 +77,6 @@
         font-size: medium;
     }
 
-#display {
-    color: white;
-    position: absolute;
-    bottom: 60px;
-    margin-left: 10px;
-}
-
-    #display td {
-        text-align: center;
-        vertical-align: middle;
-        margin-left: 0px;
-    }
 
 
 #headingText {
@@ -105,8 +86,46 @@
     text-align: center;
 }
 
-
 #selectFriend {
     position: relative;
-    top:10%;
+    top: 10%;
+}
+
+.inputElement {
+    margin-left: 15px;
+    width: 150px;
+}
+
+
+
+#display {
+    color: white;
+    position: absolute;
+    bottom: 60px;
+    width: 76%;
+    margin-left: 10px;
+}
+
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    line-height: 40px;
+}
+
+#linkElement {
+    width: 100px;
+    text-align: center;
+}
+
+#chatElement {
+    font-family: 'Times New Roman';
+    font-size: 1.5em;
+}
+
+input {
+    border-radius: 10px;
+    color: white;
+    background-color :aquamarine;
+    border: none;
 }

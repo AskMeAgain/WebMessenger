@@ -95,10 +95,19 @@ namespace WebMessenger.Controllers {
 
         public async Task<IActionResult> MakeConnectionAsync(User model) {
 
+
+
             //Get both userIDs
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
             User userB = await _context.User.SingleAsync(m => m.Name == model.Name);
             User userA = await _context.User.SingleAsync(m => m.UserID == temp.UserID);
+
+            //check if connection already exists!
+            Connections testConn = await getConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
+            if (testConn != null) {
+                TempData["msg"] = "<script>alert('Connection Already established');</script>";
+                return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
+            }
 
             //Get Open addresses:
             AddressTable addrA = await _context.AddressTable.FirstAsync(m => m.UserID == userA.UserID);
@@ -124,7 +133,7 @@ namespace WebMessenger.Controllers {
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Home");
+            return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
 
         }
 
@@ -167,11 +176,12 @@ namespace WebMessenger.Controllers {
             if (!string.IsNullOrEmpty(id)) {
 
                 //store selected User
-                User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
-                HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
-                //chatEntrys = await getChatAsync(id);
+                if (_context.User.Any(m => m.Name.Equals(id))) {
+                    User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
+                    HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
+                    //chatEntrys = await getChatAsync(id);
 
-                chatEntrys = new List<ChatEntry>() {
+                    chatEntrys = new List<ChatEntry>() {
                     new ChatEntry(),
                     new ChatEntry(),
                     new ChatEntry(),
@@ -180,8 +190,8 @@ namespace WebMessenger.Controllers {
                     new ChatEntry(),
                     new ChatEntry(),
                     new ChatEntry()
-                };
-
+                    };
+                }
             }
 
             User_Chat temp = new User_Chat {

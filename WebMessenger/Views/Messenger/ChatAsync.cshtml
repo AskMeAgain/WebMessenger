@@ -6,7 +6,6 @@
 @Html.Partial("_NavBar")
 
 <link href="/css/Messenger.css" rel="Stylesheet" type="text/css" />
-
 <div class="layout">
     <div class="function">
 
@@ -14,8 +13,8 @@
 
         <div id="addFriend">
             <label class="subHeading">Add Friend</label>
-            @using (Html.BeginForm("AddFriendAsync", "Messenger", FormMethod.Post)) {
-                <input type="text" name="Name" id="Name" />
+            @using (Html.BeginForm("MakeConnectionAsync", "Messenger", FormMethod.Post)) {
+                <input type="text" name="Name" class="inputElement" />
                 <input id="submitButton" type="submit" value="Add Friend" />
             }
         </div>
@@ -23,7 +22,7 @@
         <div id="selectFriend">
             <label class="subHeading">Select Chat</label>
             @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
-                <select id="id" name="id">
+                <select class="inputElement" name="id">
                     @foreach (User user in Model.Friends) {
                         <option value="@user.Name">@user.Name</option>
                     }
@@ -31,16 +30,14 @@
                 <input id="submitButton" type="submit" value="Show Chat" />
 
             }
-
         </div>
-
-
-
     </div>
     <div class="chat">
         @Html.Partial("_ChatDisplay", Model)
     </div>
 </div>
+
+@Html.Raw(TempData["msg"])
 
 
 
