@@ -20,7 +20,8 @@
 }
 
 .Login_innerCenter {
-    border-radius: 30px;
+    outline-offset: 2px;
+    border-radius: 4px;
     width: 50%;
     text-align: center;
     margin: 0 auto;
@@ -29,27 +30,45 @@
 }
 
 .Login_subHeadings {
-    font-size: 2em;
+    font-size: 2.5em;
 }
 
 .Login_inputRow {
-    margin-top: 40px;
+    margin-top: 35px;
+    line-height: 30px;
 }
 
     .Login_inputRow input {
         width: 90%;
-        text-align: center;
+        height: 25px;
+        text-align: left;
+        background-color: white;
+        border: none;
+        border-radius: 3px;
+        color: cornflowerblue;
+        font-family: Calibri;
+        font-weight: bold;
+        font-size: 1.3em;
+        border-style: solid;
+        border-color: cornflowerblue;
+    }
+
+    .Login_inputRow input:hover {
+        background-color:cornflowerblue;     
+        border-style:solid;
+        border-color:white;
+        color:white;
     }
 
     .Login_inputRow label {
         font-size: 1.4em;
-        margin-left: 10px;
+        margin-left: 15px;
         text-align: left;
     }
 
     .Login_inputRow button {
         position: relative;
-        margin-top: 40px;
+        bottom: -10px;
         height: 55px;
         width: 130px;
         color: white;
@@ -61,10 +80,7 @@
         transition: all 0.2s ease-out;
     }
 
-    .Login_inputRow button:hover {
-        background-color:white;
-        color:cornflowerblue;
-    
-    
-    
-    }
+        .Login_inputRow button:hover {
+            background-color: white;
+            color: cornflowerblue;
+        }
