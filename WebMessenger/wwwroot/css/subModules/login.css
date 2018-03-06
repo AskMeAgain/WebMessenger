@@ -29,37 +29,14 @@
     height: 100%;
 }
 
-.Login_subHeadings {
-    font-size: 2.5em;
-}
-
 .Login_inputRow {
     margin-top: 35px;
     line-height: 30px;
 }
 
     .Login_inputRow input {
-        transition: all 0.2s ease-out;
         width: 90%;
-        height: 25px;
-        text-align: left;
-        background-color: white;
-        border: none;
-        border-radius: 3px;
-        color: cornflowerblue;
-        font-family: Calibri;
-        font-weight: bold;
-        font-size: 1.3em;
-        border-style: solid;
-        border-color: cornflowerblue;
     }
-
-        .Login_inputRow input:hover {
-            background-color: cornflowerblue;
-            border-style: solid;
-            border-color: white;
-            color: white;
-        }
 
     .Login_inputRow label {
         font-size: 1.4em;

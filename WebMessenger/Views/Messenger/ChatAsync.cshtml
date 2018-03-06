@@ -6,32 +6,32 @@
 @Html.Partial("_NavBar")
 
 <div class="layout">
-    <div class="function">
+    <div class="Chat_ButtonPanel">
 
-        <label id="headingText">Mail</label>
+        <label class="SubHeadings">Mail</label>
 
-        <div id="addFriend">
-            <label class="subHeading">Add Friend</label>
+        <div class="Chat_FunctionGroup">
+            <label class="Chat_SubSubHeadings">Add Friend</label>
             @using (Html.BeginForm("MakeConnectionAsync", "Messenger", FormMethod.Post)) {
-                <input type="text" name="Name" class="inputElement" />
-                <input id="submitButton" type="submit" value="Add Friend" />
+                <input type="text" name="Name" id="_Inputfield" class="Chat_Inputfunction" />
+                <input class="Chat_SubmitButton" type="submit" value="Add Friend" />
             }
         </div>
 
-        <div id="selectFriend">
-            <label class="subHeading">Select Chat</label>
+        <div class="Chat_FunctionGroup">
+            <label class="Chat_SubSubHeadings">Select Chat</label>
             @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
-                <select class="inputElement" name="id">
+                <select name="id" class="Chat_Inputfunction">
                     @foreach (User user in Model.Friends) {
                         <option value="@user.Name">@user.Name</option>
                     }
                 </select>
-                <input id="submitButton" type="submit" value="Show Chat" />
+                <input class="Chat_SubmitButton" type="submit" value="Show Chat" />
 
             }
         </div>
     </div>
-    <div class="chat">
+    <div class="Chat_ChatPanel">
         @Html.Partial("_ChatDisplay", Model)
     </div>
 </div>

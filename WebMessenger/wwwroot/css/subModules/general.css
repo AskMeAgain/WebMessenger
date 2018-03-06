@@ -4,3 +4,30 @@
     display: block;
     font-weight:bold;
 }
+
+#_Inputfield:hover {
+    background-color: cornflowerblue;
+    border-style: solid;
+    border-color: white;
+    color: white;
+}
+
+#_Inputfield {
+    transition: all 0.2s ease-out;
+    height: 25px;
+    text-align: left;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    color: cornflowerblue;
+    font-family: Calibri;
+    font-weight: bold;
+    font-size: 1.3em;
+    border-style: solid;
+    border-color: cornflowerblue;
+}
+
+.SubHeadings {
+    text-align:center;
+    font-size: 2.5em;
+}

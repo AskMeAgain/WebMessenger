@@ -1,118 +1,42 @@
 ﻿.layout {
     position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 10%;
-    bottom: 10%;
-    transform: translateY(5%);
-}
-
-table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    line-height: 40px;
-}
-
-#linkElement {
-    width: 100px;
-    text-align: center;
-}
-
-#chatElement {
-    font-family: 'Times New Roman';
-    font-size: 1.5em;
-}
-
-
-#display {
-    color: white;
-    position: absolute;
-    bottom: 60px;
-    width: 76%;
-    margin-left: 10px;
-}
-
-.function {
+    left: 20%;
+    right: 20%;
+    top: 20%;
+    bottom: 20%;
     background-color: cornflowerblue;
-    border-radius: 25px;
+}
+
+.Chat_ButtonPanel {
     float: left;
-    width: 20%;
+    width: 30%;
     height: 100%;
 }
 
-.chat {
-    background-color: cornflowerblue;
+.Chat_ChatPanel {
     float: left;
-    width: 78%;
-    height: 100%;
-    margin-left: 20px;
-    border-radius: 25px;
-}
-
-#addFriend {
-    position: relative;
-    top: 40px;
-    width: 100%;
-    line-height: 30px;
-}
-
-.subHeading {
-    margin-left: 5%;
-    display: block;
-    color: white;
-    font-size: large;
-    text-align: left;
-}
-
-#addFriend input {
-    margin-left: 5%;
-}
-
-#submitButton {
-    width: 100px;
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-}
-
-#input {
-    position: absolute;
-    bottom: 10px;
-    margin-left: 10px;
-    width: 100%;
-}
-
-#inputField {
+    background-color: green;
     width: 70%;
+    height: 100%;
 }
 
-#toolBox {
-    position: absolute;
-    top: 10px;
-    margin-left: 10px;
+.Chat_SubSubHeadings {
+    font-size: 1.4em;
 }
 
-    #toolBox input {
-        width: 200px;
-        height: 50px;
-        font-size: medium;
-    }
-
-
-
-#headingText {
-    display: block;
-    color: white;
-    font-size: 4em;
-    text-align: center;
+.Chat_FunctionGroup {
+    margin-top: 35px;
+    margin-left:10px;
+    line-height:30px;
 }
 
-#selectFriend {
-    position: relative;
-    top: 10%;
+.Chat_SubmitButton {
+    width:25%;
+    position:relative;
+    right:-2px;
+    bottom: 0px;
 }
 
-.inputElement {
-    margin-left: 15px;
-    width: 150px;
+.Chat_Inputfunction {
+    width:70%;
 }
