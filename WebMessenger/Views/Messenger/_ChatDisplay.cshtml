@@ -1,13 +1,12 @@
 ﻿
 @model WebMessenger.Models.User_Chat
 
-
 @if (!string.IsNullOrEmpty(Model.selectedChat)) {
     @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
-        <div id="toolBox">
+        <div class="Chat_ChatPanel_toolBox">
             @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
                 <input type="hidden" name="id" value="@Model.selectedChat" />
-                <input type="submit" value="Refresh Chat" />
+                <input class="GeneralButton" type="submit" value="Refresh Chat" />
             }
         </div>
     }
@@ -16,7 +15,7 @@
 @{
     if (!string.IsNullOrEmpty(Model.selectedChat)) {
 
-        <div id="display">
+        <div class="Chat_ChatPanel_Display">
             <table>
                 @{
                     foreach (WebMessenger.Models.ChatEntry s in Model.Chat) {
@@ -24,7 +23,7 @@
                         <tr>
                             <td id="linkElement">
                                 <form target="_blank" action="@link">
-                                    <input type="submit" value="Link" />
+                                    <input class="GeneralButton" type="submit" value="Check" />
                                 </form>
                             </td>
                             <td id="chatElement">
@@ -35,11 +34,10 @@
                 }
             </table>
         </div>
-        <div id="input">
-
+        <div class="Chat_ChatPanel_Input">
             @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
-                <input id="inputField" type="text" name="Message" />
-                <input type="submit" value="Send" />
+                <input class="Chat_ChatPanel_Inputfield Inputfield" type="text" name="Message" />
+                <input type="submit" class="GeneralButton Chat_ChatPanel_SendButton" value="Send" />
             }
         </div>
     }

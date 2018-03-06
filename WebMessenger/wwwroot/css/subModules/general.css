@@ -6,27 +6,35 @@
 }
 
 button {
+    transition: all 0.2s ease-out;
     color: white;
     text-decoration-line: none;
-    outline: 2px solid white;
-    border: none;
+    border: solid;
+    border-radius: 3px;
+    border-color: white;
     background-color: cornflowerblue;
-    transition: all 0.2s ease-out;
     font-family: Calibri;
     font-weight: bold;
 }
 
     button:hover {
         background-color: white;
+        border-style: solid;
+        border-color: white;
         color: cornflowerblue;
     }
 
+td {
+    color: white;
+    font-family: Calibri;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
 
 /*CUSTOM CLASSES*/
-
 .Inputfield {
     transition: all 0.2s ease-out;
-    text-align: left;
     background-color: white;
     border: none;
     border-radius: 3px;
@@ -36,6 +44,7 @@ button {
     font-size: 1.3em;
     border-style: solid;
     border-color: cornflowerblue;
+    text-align: left;
 }
 
     .Inputfield:hover {

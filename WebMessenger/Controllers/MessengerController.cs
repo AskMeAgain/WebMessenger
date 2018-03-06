@@ -179,18 +179,18 @@ namespace WebMessenger.Controllers {
                 if (_context.User.Any(m => m.Name.Equals(id))) {
                     User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
                     HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
-                    //chatEntrys = await getChatAsync(id);
+                    chatEntrys = await getChatAsync(id);
 
-                    chatEntrys = new List<ChatEntry>() {
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry(),
-                    new ChatEntry()
-                    };
+                    //chatEntrys = new List<ChatEntry>() {
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry(),
+                    //new ChatEntry()
+                    //};
                 }
             }
 
@@ -242,7 +242,7 @@ namespace WebMessenger.Controllers {
 
             List<ChatEntry> sortedList = chatEntrys.OrderBy(o => o.TimeStamp).ToList();
 
-            return chatEntrys;
+            return sortedList;
 
         }
 

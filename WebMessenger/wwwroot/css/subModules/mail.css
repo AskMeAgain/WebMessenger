@@ -15,7 +15,6 @@
 
 .Chat_ChatPanel {
     float: left;
-    background-color: green;
     width: 70%;
     height: 100%;
 }
@@ -31,17 +30,17 @@
 }
 
 .Chat_SubmitButton {
-    display:block;
+    display: block;
     width: 100px;
     position: absolute;
-    left:16%;
+    left: 16%;
     height: 30px;
-    margin-left:50px;
+    margin-left: 50px;
 }
 
 .Chat_Inputfunction {
-    display:block;
-    float:left;
+    display: block;
+    float: left;
     width: 60%;
     height: 31px;
 }
@@ -52,14 +51,51 @@
     outline-color: cornflowerblue;
     text-decoration-style: none;
     border: none;
-    color:cornflowerblue;
-    font-weight:bold;
-    font-family:Calibri;
-    font-size:1.3em;
+    color: cornflowerblue;
+    font-weight: bold;
+    font-family: Calibri;
+    font-size: 1.3em;
 }
 
     .Chat_DropDown:hover {
-        outline-color:white;
-        background-color:cornflowerblue;
-        color:white;   
+        outline-color: white;
+        background-color: cornflowerblue;
+        color: white;
     }
+
+.Chat_ChatPanel_Input {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.Chat_ChatPanel_Display {
+    position: absolute;
+    bottom: 65px;
+    margin-left: 10px;
+}
+
+.Chat_ChatPanel_Inputfield {
+    width: 55%;
+    height: 30px;
+}
+
+.Chat_ChatPanel_SendButton {
+    width: 90px;
+    height: 34px;
+    position: absolute;
+    right: 33%;
+}
+
+#linkElement {
+    display: table-cell;
+    width: 80px;
+    margin:auto;
+    text-align:center;
+}
+
+
+.Chat_ChatPanel_toolBox {
+    
+}
