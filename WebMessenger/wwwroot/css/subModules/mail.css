@@ -1,12 +1,35 @@
-﻿
-/*overall layout window*/
-.layout {
+﻿.layout {
     position: absolute;
     left: 10%;
     right: 10%;
     top: 10%;
     bottom: 10%;
     transform: translateY(5%);
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    line-height: 40px;
+}
+
+#linkElement {
+    width: 100px;
+    text-align: center;
+}
+
+#chatElement {
+    font-family: 'Times New Roman';
+    font-size: 1.5em;
+}
+
+
+#display {
+    color: white;
+    position: absolute;
+    bottom: 60px;
+    width: 76%;
+    margin-left: 10px;
 }
 
 .function {
@@ -63,8 +86,6 @@
     width: 70%;
 }
 
-
-
 #toolBox {
     position: absolute;
     top: 10px;
@@ -94,38 +115,4 @@
 .inputElement {
     margin-left: 15px;
     width: 150px;
-}
-
-
-
-#display {
-    color: white;
-    position: absolute;
-    bottom: 60px;
-    width: 76%;
-    margin-left: 10px;
-}
-
-
-table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    line-height: 40px;
-}
-
-#linkElement {
-    width: 100px;
-    text-align: center;
-}
-
-#chatElement {
-    font-family: 'Times New Roman';
-    font-size: 1.5em;
-}
-
-input {
-    border-radius: 10px;
-    color: white;
-    background-color :aquamarine;
-    border: none;
 }

@@ -6,64 +6,41 @@
 
 @Html.Partial("_NavBar", 0)
 
-<link href="/css/Login.css" rel="Stylesheet" type="text/css" />
+<div class="Login_Layout">
+    <div class="Login_LoginPanel">
+        <div class="Login_innerCenter">
+            <label class="Login_subHeadings">Login</label>
 
-<table>
-    <tr>
-        <th>Login</th>
-        <th>Register</th>
-    </tr>
-    <tr>
-        <td>
-            <div>
-                @using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
-                    <table>
-                        <tr>
-                            <td>Name</td>
-                            <td>@Html.TextBoxFor(model => model.Name)</td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td> @Html.TextBoxFor(model => model.PW)</td>
-                        </tr>
-                        <tr>
-                            <td><br /></td>
-                            <td><br /></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" height="40">
-                                <button class="submitButtonTable" type="submit">Login</button>
-                            </td>
-                        </tr>
-                    </table>
-                }
-            </div>
-        </td>
-        <td>
-            <div>
-                @using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
-                    <table>
-                        <tr>
-                            <td>Name</td>
-                            <td>@Html.TextBoxFor(model => model.Name)</td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td> @Html.TextBoxFor(model => model.PW)</td>
-                        </tr>
-                        <tr>
-                            <td>Seed</td>
-                            <td> @Html.TextBoxFor(model => model.Seed)</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" height="40">
-                                <button class="submitButtonTable" type="submit">Register</button>
-                            </td>
-                        </tr>
-                    </table>
-                }
-            </div>
-        </td>
-    </tr>
+            @using (Html.BeginForm("CheckLoginAsync", "Messenger", FormMethod.Post)) {
 
-</table>
+
+                <div class="Login_inputRow">
+                    <label>Name</label>
+                    @Html.TextBoxFor(model => model.Name, new { id = "" })
+                </div>
+                <div class="Login_inputRow">
+                    <label>Password</label>
+                    @Html.TextBoxFor(model => model.PW, new { id = "" })
+                </div>
+                <div class="Login_inputRow">
+                    <button type="submit">Login</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="Login_RegisterPanel">
+        <div class="Login_innerCenter">
+            <label class="Login_subHeadings">Register</label>
+            @using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
+
+                @Html.TextBoxFor(model => model.Name, new { id = "" })
+
+                @Html.TextBoxFor(model => model.PW, new { id = "" })
+
+                @Html.TextBoxFor(model => model.Seed, new { id = "" })
+
+                <button class="submitButtonTable" type="submit">Register</button>
+            }
+        </div>
+    </div>
+</div>
