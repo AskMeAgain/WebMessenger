@@ -1,4 +1,8 @@
-﻿label {
+﻿:root {
+    --maincolor: cornflowerblue;
+}
+
+label {
     font-family: Calibri;
     color: white;
     display: block;
@@ -12,7 +16,7 @@ button {
     border: solid;
     border-radius: 3px;
     border-color: white;
-    background-color: cornflowerblue;
+    background-color: var(--maincolor);
     font-family: Calibri;
     font-weight: bold;
 }
@@ -21,7 +25,7 @@ button {
         background-color: white;
         border-style: solid;
         border-color: white;
-        color: cornflowerblue;
+        color: var(--maincolor);
     }
 
 td {
@@ -38,17 +42,17 @@ td {
     background-color: white;
     border: none;
     border-radius: 3px;
-    color: cornflowerblue;
+    color: var(--maincolor);
     font-family: Calibri;
     font-weight: bold;
     font-size: 1.3em;
     border-style: solid;
-    border-color: cornflowerblue;
+    border-color: var(--maincolor);
     text-align: left;
 }
 
     .Inputfield:hover {
-        background-color: cornflowerblue;
+        background-color: var(--maincolor);
         border-style: solid;
         border-color: white;
         color: white;
@@ -64,7 +68,7 @@ td {
     text-decoration-line: none;
     outline: 2px solid white;
     border: none;
-    background-color: cornflowerblue;
+    background-color: var(--maincolor);
     transition: all 0.2s ease-out;
     font-family: Calibri;
     font-weight: bold;
@@ -72,5 +76,5 @@ td {
 
     .GeneralButton:hover {
         background-color: white;
-        color: cornflowerblue;
+        color: var(--maincolor);
     }

@@ -4,7 +4,7 @@
     right: 20%;
     top: 20%;
     bottom: 20%;
-    background-color: cornflowerblue;
+    background-color: var(--maincolor);
 }
 
 .Chat_ButtonPanel {
@@ -48,10 +48,10 @@
 .Chat_DropDown {
     transition: all 0.2s ease-out;
     outline-style: solid;
-    outline-color: cornflowerblue;
+    outline-color: var(--maincolor);
     text-decoration-style: none;
     border: none;
-    color: cornflowerblue;
+    color: var(--maincolor);
     font-weight: bold;
     font-family: Calibri;
     font-size: 1.3em;
@@ -59,7 +59,7 @@
 
     .Chat_DropDown:hover {
         outline-color: white;
-        background-color: cornflowerblue;
+        background-color: var(--maincolor);
         color: white;
     }
 

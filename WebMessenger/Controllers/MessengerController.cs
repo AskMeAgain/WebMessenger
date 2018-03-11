@@ -246,6 +246,13 @@ namespace WebMessenger.Controllers {
 
         }
 
+        public ActionResult Logout() {
+
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login");
+        }
+
         private List<User> getFriends() {
 
             //get user first
@@ -270,7 +277,9 @@ namespace WebMessenger.Controllers {
 
         public async Task<Connections> getConnectionFromTwoIDsAsync(int a, int b) {
 
-            return await _context.Connections.Include("UserA_").Include("UserB_").SingleAsync(
+
+
+            return await _context.Connections.Include("UserA_").Include("UserB_").SingleOrDefaultAsync(
                 m => ((m.UserA_.UserID == a && m.UserB_.UserID == b) || (m.UserB_.UserID == a && m.UserA_.UserID == b)));
 
         }
