@@ -167,7 +167,6 @@ namespace WebMessenger.Controllers {
             if (HttpContext.Session.GetObjectFromJson<User>("User") == null)
                 return RedirectToAction("Login");
 
-
             List<User> userList = getFriends();
 
             List<ChatEntry> chatEntrys = new List<ChatEntry>();
@@ -197,8 +196,9 @@ namespace WebMessenger.Controllers {
             User_Chat temp = new User_Chat {
                 Chat = chatEntrys,
                 selectedChat = id,
-                Friends = userList
-            };
+                Friends = userList,
+                LocalUser = HttpContext.Session.GetObjectFromJson<User>("User")
+        };
 
             return View(temp);
 

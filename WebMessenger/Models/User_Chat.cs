@@ -10,6 +10,6 @@ namespace WebMessenger.Models
         public string selectedChat { get; set; }
         public List<User> Friends { get; set; }
         public List<ChatEntry> Chat { get; set; }
-
+        public User LocalUser { get; set; }
     }
 }

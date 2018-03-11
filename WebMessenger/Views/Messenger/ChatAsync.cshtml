@@ -3,7 +3,7 @@
     ViewData["Title"] = "Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("_NavBar")
+@Html.Partial("_NavBar", Model.LocalUser)
 
 <div class="layout">
     <div class="Chat_ButtonPanel">
