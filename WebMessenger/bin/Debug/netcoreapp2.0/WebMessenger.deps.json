@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "d7386e1302160fada92712f63777c293ba551b1b"
+    "signature": "4332ceb7ee39029d878b748fcfeffb2cab527f12"
   },
   "compilationOptions": {
     "defines": [
@@ -27,7 +27,9 @@
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
-          "Tangle.Net": "1.0.5"
+          "Tangle.Net": "1.0.5",
+          "jQuery": "3.3.1",
+          "jQuery.UI.Combined": "1.12.1"
         },
         "runtime": {
           "WebMessenger.dll": {}
@@ -42,6 +44,12 @@
         },
         "compile": {
           "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
+      "jQuery/3.3.1": {},
+      "jQuery.UI.Combined/1.12.1": {
+        "dependencies": {
+          "jQuery": "3.3.1"
         }
       },
       "Libuv/1.10.0": {
@@ -4276,6 +4284,20 @@
       "sha512": "sha512-r0w4ciJJ916V3dYRdtq8uF4Nz6oAv8Mia1JEAPKgDDRzMTcht8uK/Qam9WtvIg9SaFa+4OTox+GG6huB07nC1g==",
       "path": "bouncycastle/1.8.1",
       "hashPath": "bouncycastle.1.8.1.nupkg.sha512"
+    },
+    "jQuery/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tYajvLpBj04iqObTE+KDX172vu9Ifgja17CSezuBAI0nJt5CgsTcQqMX356F8S6z98VZ2k5EAesPNMvwshPhZQ==",
+      "path": "jquery/3.3.1",
+      "hashPath": "jquery.3.3.1.nupkg.sha512"
+    },
+    "jQuery.UI.Combined/1.12.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5B0LrPZ0TLlwplPRu43h7fgMtDxMMEF31HajUqHSOJ7bC6nyJUJy7AkcuGaJdBrrZAZutnSBgXT01BGiIIC4TQ==",
+      "path": "jquery.ui.combined/1.12.1",
+      "hashPath": "jquery.ui.combined.1.12.1.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

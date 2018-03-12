@@ -16,6 +16,7 @@
 }
 
 .NavBar_Button {
+    cursor: pointer;
     float: left;
     position: relative;
     margin-left: 4px;
@@ -39,33 +40,38 @@
     left: 20%;
 }
 
-    .NavBar_Button:hover {
-        background-color: white;
-        color: var(--maincolor);
-    }
+.NavBar_Button:hover {
+    background-color: white;
+    color: var(--maincolor);
+}
 
 #NavBar_Logout {
     position: absolute;
     right: 4px;
-    top:0px;
+    top: 0px;
 }
 
 #NavBar_Text {
     float: left;
-    height:60px;
-    line-height:60px;
-    margin-right:20px;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 20px;
     font-size: 1.7em;
 }
 
 
 #NavBar_OptionPanel {
-    background-color:var(--maincolor);
-    width:166px;
-    position:absolute;
-    top:62px;
-    height:100%;
-    right:4px;
-    outline-style:solid;
-    outline-color:white;
+    background-color: var(--maincolor);
+    width: 300px;
+    position: absolute;
+    top: 64px;
+    right: 4px;
+    outline-style: solid;
+    outline-color: white;
+    display: none;
+}
+
+#NavBar_OptionPanel_Title {
+    font-size: 2em;
+    text-align: center;
 }
