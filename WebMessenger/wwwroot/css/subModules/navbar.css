@@ -35,7 +35,7 @@
 }
 
 
-#NavBar_leftSide {
+.NavBar_leftSide {
     left: 20%;
 }
 
@@ -56,4 +56,16 @@
     line-height:60px;
     margin-right:20px;
     font-size: 1.7em;
+}
+
+
+#NavBar_OptionPanel {
+    background-color:var(--maincolor);
+    width:166px;
+    position:absolute;
+    top:62px;
+    height:100%;
+    right:4px;
+    outline-style:solid;
+    outline-color:white;
 }

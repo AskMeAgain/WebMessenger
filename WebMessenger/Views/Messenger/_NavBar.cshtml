@@ -6,19 +6,35 @@
 <script type="text/javascript">
     document.body.style.setProperty('--maincolor', "cornflowerblue")
 </script>
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'>
+    $(document).ready(function () {
+        $('#btnSubmit').click(function (e) {
+            $('#NavBar_OptionPanel').toggle(); //Show or Hide
+            e.preventDefault();
+        });
+
+    });
+</script>
 
 <div class="NavBar">
     <label id="NavBar_Title">WebMessenger</label>
-    <a id="NavBar_leftSide" class="NavBar_Button" asp-controller="Messenger" asp-action="ChatAsync">Chat</a>
-    <a id="NavBar_leftSide" class="NavBar_Button" asp-controller="Messenger" asp-action="Wallet">Wallet</a>
+    <a class="NavBar_Button NavBar_leftSide" asp-controller="Messenger" asp-action="ChatAsync">Chat</a>
+    <a class="NavBar_Button NavBar_leftSide" asp-controller="Messenger" asp-action="Wallet">Wallet</a>
 
     @if (Model != null) {
         @if (!string.IsNullOrEmpty(Model.Name)) {
             <div id="NavBar_Logout">
                 <label id="NavBar_Text">Hallo @Model.Name</label>
-                <a id="NavBar_rightSide" class="NavBar_Button" id="NavBar_Settings" asp-controller="Messenger" asp-action="Settings">Settings</a>
-                <a id="NavBar_rightSide" class="NavBar_Button" asp-controller="Messenger" asp-action="Logout">Logout</a>
+                <a id="btnSubmit" class="NavBar_Button">Settings</a>
+                <a class="NavBar_Button" asp-controller="Messenger" asp-action="Logout">Logout</a>
             </div>
         }
     }
+</div>
+
+<div id="NavBar_OptionPanel">
+    <label>Options</label>
+
+
+
 </div>
