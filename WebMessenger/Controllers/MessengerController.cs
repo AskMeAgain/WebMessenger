@@ -13,6 +13,8 @@ using Tangle.Net.Repository;
 using RestSharp;
 using Tangle.Net.ProofOfWork;
 using Tangle.Net.Utils;
+using Tangle.Net.Mam;
+using System.Text.RegularExpressions;
 
 namespace WebMessenger.Controllers {
 
@@ -121,7 +123,8 @@ namespace WebMessenger.Controllers {
                 UserB_ = userB,
                 AddressA = addrA.generatedAddress,
                 AddressB = addrB.generatedAddress,
-                RefreshCounter = counter
+                RefreshCounter = counter,
+                EncryptionKey = generateEncryptionKey()
             };
 
             _context.Connections.Add(conn);
@@ -135,6 +138,10 @@ namespace WebMessenger.Controllers {
 
             return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
 
+        }
+
+        private string generateEncryptionKey() {
+            return Seed.Random().ToString();
         }
 
         public async Task generateAddressFromUserAsync(User user, int num) {
@@ -198,7 +205,7 @@ namespace WebMessenger.Controllers {
                 selectedChat = id,
                 Friends = userList,
                 LocalUser = HttpContext.Session.GetObjectFromJson<User>("User")
-        };
+            };
 
             return View(temp);
 
@@ -216,7 +223,6 @@ namespace WebMessenger.Controllers {
 
             //get connection of users
             Connections conn = await getConnectionFromTwoIDsAsync(local.UserID, other.UserID);
-
 
             List<Address> addresses = new List<Address>() {
                 new Address(conn.AddressA),
@@ -236,7 +242,7 @@ namespace WebMessenger.Controllers {
                 else
                     entryName = conn.UserA_.Name;
 
-                ChatEntry entry = new ChatEntry(b, entryName);
+                ChatEntry entry = new ChatEntry(b, entryName, conn.GetKey());
                 chatEntrys.Add(entry);
             }
 
@@ -277,8 +283,6 @@ namespace WebMessenger.Controllers {
 
         public async Task<Connections> getConnectionFromTwoIDsAsync(int a, int b) {
 
-
-
             return await _context.Connections.Include("UserA_").Include("UserB_").SingleOrDefaultAsync(
                 m => ((m.UserA_.UserID == a && m.UserB_.UserID == b) || (m.UserB_.UserID == a && m.UserA_.UserID == b)));
 
@@ -287,13 +291,15 @@ namespace WebMessenger.Controllers {
         public async Task<IActionResult> SendMessageAsync(string Message) {
 
             var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+            var mask = new CurlMask();
 
             User sender = HttpContext.Session.GetObjectFromJson<User>("User");
             User receiver = HttpContext.Session.GetObjectFromJson<User>("SelectedUser");
 
-            Connections conn = await getConnectionFromTwoIDsAsync(sender.UserID, receiver.UserID);
+            Connections connection = await getConnectionFromTwoIDsAsync(sender.UserID, receiver.UserID);
 
-            string sendingAddress = (conn.UserA_.UserID == sender.UserID) ? conn.AddressB : conn.AddressA;
+            string sendingAddress = (connection.UserA_.UserID == sender.UserID) ? connection.AddressB : connection.AddressA;
+
 
             Transfer trans = new Transfer() {
                 Address = new Address(sendingAddress) { Balance = 0 },
@@ -313,6 +319,10 @@ namespace WebMessenger.Controllers {
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
             return RedirectToAction("ChatAsync", new { id = receiver.Name });
+        }
+
+        private string sanitizeMessage(string message) {
+            return Regex.Replace(message, @"[^\u0000-\u007F]+", string.Empty);
         }
     }
 }

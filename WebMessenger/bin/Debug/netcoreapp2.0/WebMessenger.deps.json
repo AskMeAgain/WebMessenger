@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "4332ceb7ee39029d878b748fcfeffb2cab527f12"
+    "signature": "e2a76b546e6beb2e8d15dfc226dd19e9d4925f89"
   },
   "compilationOptions": {
     "defines": [
@@ -27,7 +27,8 @@
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
-          "Tangle.Net": "1.0.5",
+          "Tangle.Net": "1.0.6",
+          "Tangle.Net.Mam": "0.5.0",
           "jQuery": "3.3.1",
           "jQuery.UI.Combined": "1.12.1"
         },
@@ -4068,7 +4069,7 @@
           "System.Xml.XPath": "4.3.0"
         }
       },
-      "Tangle.Net/1.0.5": {
+      "Tangle.Net/1.0.6": {
         "dependencies": {
           "BouncyCastle": "1.8.1",
           "RestSharp": "106.2.1"
@@ -4078,6 +4079,17 @@
         },
         "compile": {
           "lib/net461/Tangle.Net.dll": {}
+        }
+      },
+      "Tangle.Net.Mam/0.5.0": {
+        "dependencies": {
+          "Tangle.Net": "1.0.6"
+        },
+        "runtime": {
+          "lib/net461/Tangle.Net.Mam.dll": {}
+        },
+        "compile": {
+          "lib/net461/Tangle.Net.Mam.dll": {}
         }
       },
       "WindowsAzure.Storage/8.1.4": {
@@ -6427,12 +6439,19 @@
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
     },
-    "Tangle.Net/1.0.5": {
+    "Tangle.Net/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-c7frLUt+fFjmvRcyheSeTazZSi2JG82CjNZv2d+bmjNfZtJI7M5UivnDVNWBuZm5QgFxDIZbsWQhoBxngj6+8A==",
-      "path": "tangle.net/1.0.5",
-      "hashPath": "tangle.net.1.0.5.nupkg.sha512"
+      "sha512": "sha512-yRqkAL+jtaR9Co2eV88V6R2PBjt9WrqtMaHA9M/cb9ZWv9bbxc+BTEzaXUGJ90JFgYbZ8fJ36Ou2THax8RVWpQ==",
+      "path": "tangle.net/1.0.6",
+      "hashPath": "tangle.net.1.0.6.nupkg.sha512"
+    },
+    "Tangle.Net.Mam/0.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EmAcrxiS0nsNGw4zXTlcWUuDdAzDNM6sRV6yZW2oHjuM+hKqGBLk7NW3X+KFSYmlIqrhRbyzCD7sH2FSySz4PA==",
+      "path": "tangle.net.mam/0.5.0",
+      "hashPath": "tangle.net.mam.0.5.0.nupkg.sha512"
     },
     "WindowsAzure.Storage/8.1.4": {
       "type": "package",

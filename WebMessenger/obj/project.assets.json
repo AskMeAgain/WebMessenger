@@ -5044,7 +5044,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Tangle.Net/1.0.5": {
+      "Tangle.Net/1.0.6": {
         "type": "package",
         "dependencies": {
           "BouncyCastle": "1.8.1",
@@ -5055,6 +5055,18 @@
         },
         "runtime": {
           "lib/net461/Tangle.Net.dll": {}
+        }
+      },
+      "Tangle.Net.Mam/0.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Tangle.Net": "1.0.5"
+        },
+        "compile": {
+          "lib/net461/Tangle.Net.Mam.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Tangle.Net.Mam.dll": {}
         }
       },
       "WindowsAzure.Storage/8.1.4": {
@@ -13232,14 +13244,24 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "Tangle.Net/1.0.5": {
-      "sha512": "c7frLUt+fFjmvRcyheSeTazZSi2JG82CjNZv2d+bmjNfZtJI7M5UivnDVNWBuZm5QgFxDIZbsWQhoBxngj6+8A==",
+    "Tangle.Net/1.0.6": {
+      "sha512": "yRqkAL+jtaR9Co2eV88V6R2PBjt9WrqtMaHA9M/cb9ZWv9bbxc+BTEzaXUGJ90JFgYbZ8fJ36Ou2THax8RVWpQ==",
       "type": "package",
-      "path": "tangle.net/1.0.5",
+      "path": "tangle.net/1.0.6",
       "files": [
         "lib/net461/Tangle.Net.dll",
-        "tangle.net.1.0.5.nupkg.sha512",
+        "tangle.net.1.0.6.nupkg.sha512",
         "tangle.net.nuspec"
+      ]
+    },
+    "Tangle.Net.Mam/0.5.0": {
+      "sha512": "EmAcrxiS0nsNGw4zXTlcWUuDdAzDNM6sRV6yZW2oHjuM+hKqGBLk7NW3X+KFSYmlIqrhRbyzCD7sH2FSySz4PA==",
+      "type": "package",
+      "path": "tangle.net.mam/0.5.0",
+      "files": [
+        "lib/net461/Tangle.Net.Mam.dll",
+        "tangle.net.mam.0.5.0.nupkg.sha512",
+        "tangle.net.mam.nuspec"
       ]
     },
     "WindowsAzure.Storage/8.1.4": {
@@ -13271,7 +13293,8 @@
       "Microsoft.AspNetCore.Session >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2",
-      "Tangle.Net >= 1.0.5",
+      "Tangle.Net >= 1.0.6",
+      "Tangle.Net.Mam >= 0.5.0",
       "jQuery >= 3.3.1",
       "jQuery.UI.Combined >= 1.12.1"
     ]
@@ -13339,7 +13362,11 @@
           },
           "Tangle.Net": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
+          },
+          "Tangle.Net.Mam": {
+            "target": "Package",
+            "version": "[0.5.0, )"
           },
           "jQuery": {
             "target": "Package",
@@ -13373,8 +13400,18 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Tangle.Net 1.0.5' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'Tangle.Net 1.0.6' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
       "libraryId": "Tangle.Net",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Tangle.Net.Mam 0.5.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Tangle.Net.Mam",
       "targetGraphs": [
         ".NETCoreApp,Version=v2.0"
       ]

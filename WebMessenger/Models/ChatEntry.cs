@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tangle.Net.Entity;
+using Tangle.Net.Mam;
 
 namespace WebMessenger.Models {
     public class ChatEntry {
@@ -12,21 +14,13 @@ namespace WebMessenger.Models {
         public string Name { get; set; }
         public long TimeStamp { get; set; }
 
-        public ChatEntry(Bundle bundle, string name) {
+        public ChatEntry(Bundle bundle, string name, TryteString encryptionKey) {
 
             TransactionID = bundle.Transactions[0].Hash.ToString();
             Name = name;
 
-            List<string> messageList = bundle.GetMessages();
-
-            if (messageList != null && messageList.Count > 0) {
-
-                Message = messageList[0].ToString();
-
-                TimeStamp = bundle.Transactions[0].Timestamp;
-
-            } else
-                Message = "";
+            Message = bundle.Transactions[0].Fragment.ToAsciiString();
+            TimeStamp = bundle.Transactions[0].Timestamp;
 
         }
 
