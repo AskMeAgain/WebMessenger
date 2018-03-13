@@ -11,8 +11,16 @@
         $("#NavBar_SettingsButton").click(function () {
             $("#NavBar_OptionPanel").toggle();
             var wH = $(window).height() - 64;
-            $("#NavBar_OptionPanel").css({ height: wH});
+            $("#NavBar_OptionPanel").css({ height: wH });
         });
+
+        $(".NavBar_loadingCircle").hide();
+
+        $(".Chat_ChatPanel_SendButton").click(function () { 
+
+            $(".NavBar_loadingCircle").show();
+        });
+
     });
 </script>
 
@@ -34,7 +42,11 @@
 
 <div id="NavBar_OptionPanel">
     <label id="NavBar_OptionPanel_Title">Options</label>
+</div>
 
-
-
+<div class="NavBar_loadingCircle">
+    <div id="NavBar_loadingCircle_Panel">
+        <label id="NavBar_loadingCircleText">Processing Request</label>
+        <img id="NavBar_loadImg" src="~/images/load2.gif" />
+    </div>
 </div>
