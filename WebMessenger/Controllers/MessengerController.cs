@@ -57,7 +57,7 @@ namespace WebMessenger.Controllers {
 
             _context.User.Add(user);
 
-            await generateAddressFromUserAsync(user, 4);
+            await generateAddressFromUserAsync(user, 0, 4);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Login");
@@ -129,10 +129,13 @@ namespace WebMessenger.Controllers {
 
             _context.Connections.Add(conn);
 
+            //generate a new address for your own user:
+            await generateAddressFromUserAsync(userA, userA.AddressIndex, userA.AddressIndex + 1);
+
+
             //remove them out of the list
             _context.AddressTable.Remove(addrA);
             _context.AddressTable.Remove(addrB);
-
 
             await _context.SaveChangesAsync();
 
@@ -144,13 +147,13 @@ namespace WebMessenger.Controllers {
             return Seed.Random().ToString();
         }
 
-        public async Task generateAddressFromUserAsync(User user, int num) {
+        public async Task generateAddressFromUserAsync(User user, int start, int end) {
 
             var addressGenerator = new AddressGenerator(user.getSeed());
 
             int i;
 
-            for (i = 0; i < num; i++) {
+            for (i = start; i < end; i++) {
                 AddressTable addr = new AddressTable() {
                     Index = user.AddressIndex + i,
                     generatedAddress = addressGenerator.GetAddress(user.AddressIndex + i).ToString(),

@@ -7,17 +7,19 @@
 </script>
 <script src="~/lib/jquery/dist/jquery.js" type="text/javascript"></script>
 <script>
+
     $(document).ready(function () {
+
         $("#NavBar_SettingsButton").click(function () {
             $("#NavBar_OptionPanel").toggle();
             var wH = $(window).height() - 64;
             $("#NavBar_OptionPanel").css({ height: wH });
         });
 
-        //$(".NavBar_loadingCircle").hide();
+        $(".NavBar_loadingCircle").hide();
 
-        $(".WaitFor").click(function () { 
-
+        $(".WaitFor").click(function () {
+            $(".NavBar_loadingCircle").attr("show", "1");
             $(".NavBar_loadingCircle").show();
         });
 
@@ -32,7 +34,7 @@
     @if (Model != null) {
         @if (!string.IsNullOrEmpty(Model.Name)) {
             <div id="NavBar_Logout">
-                <label id="NavBar_Text">Hallo @Model.Name</label>
+                <label id="NavBar_Text">Hi @Model.Name</label>
                 <a class="NavBar_Button" id="NavBar_SettingsButton">Settings</a>
                 <a class="NavBar_Button" asp-controller="Messenger" asp-action="Logout">Logout</a>
             </div>

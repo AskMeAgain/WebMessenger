@@ -14,7 +14,7 @@
             <label class="Chat_SubSubHeadings">Add Friend</label>
             @using (Html.BeginForm("MakeConnectionAsync", "Messenger", FormMethod.Post)) {
                 <input type="text" name="Name" class="Chat_Inputfunction Inputfield" />
-                <input class="GeneralButton Chat_SubmitButton" type="submit" value="Add Friend" />
+                <input class="GeneralButton Chat_SubmitButton WaitFor" type="submit" value="Add Friend" />
             }
         </div>
         <div class="Chat_FunctionGroup">
