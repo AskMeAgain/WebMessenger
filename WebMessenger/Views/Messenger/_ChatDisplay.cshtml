@@ -6,7 +6,7 @@
         <div class="Chat_ChatPanel_toolBox">
             @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
                 <input type="hidden" name="id" value="@Model.selectedChat" />
-                <input class="GeneralButton" type="submit" value="Refresh Chat" />
+                <input class="GeneralButton WaitFor" type="submit" value="Refresh Chat" />
             }
         </div>
     }
@@ -37,7 +37,7 @@
         <div class="Chat_ChatPanel_Input">
             @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
                 <input class="Chat_ChatPanel_Inputfield Inputfield" type="text" name="Message" />
-                <input type="submit" class="GeneralButton Chat_ChatPanel_SendButton" value="Send" />
+                <input type="submit" class="GeneralButton Chat_ChatPanel_SendButton WaitFor" value="Send" />
             }
         </div>
     }
