@@ -124,15 +124,13 @@ namespace WebMessenger.Controllers {
             AddressTable addrA = await _context.AddressTable.FirstAsync(m => m.UserID == userA.UserID);
             AddressTable addrB = await _context.AddressTable.FirstAsync(m => m.UserID == userB.UserID);
 
-            //set refreshCounter
-            byte counter = 0;
-
             Connections conn = new Connections {
                 UserA_ = userA,
                 UserB_ = userB,
                 AddressA = addrA.generatedAddress,
                 AddressB = addrB.generatedAddress,
-                RefreshCounter = counter,
+                Refresh_A = false,
+                Refresh_B = false,
                 EncryptionKey = generateEncryptionKey()
             };
 
@@ -236,6 +234,17 @@ namespace WebMessenger.Controllers {
             //get connection of users
             Connections conn = await getConnectionFromTwoIDsAsync(local.UserID, other.UserID);
 
+            //set refresh bools
+            if (conn.UserA_.Name.Equals(local.Name))
+                conn.Refresh_A = false;
+            else
+                conn.Refresh_B = false;
+
+            //updating entry
+            _context.Connections.Update(conn);
+            _context.SaveChanges();
+
+            //setting addresses to check for new messages
             List<Address> addresses = new List<Address>() {
                 new Address(conn.AddressA),
                 new Address(conn.AddressB)
@@ -309,6 +318,16 @@ namespace WebMessenger.Controllers {
             User receiver = HttpContext.Session.GetObjectFromJson<User>("SelectedUser");
 
             Connections connection = await getConnectionFromTwoIDsAsync(sender.UserID, receiver.UserID);
+
+            //set refresh bools
+            if (connection.UserA_.Name.Equals(sender.Name))
+                connection.Refresh_B = true;
+            else
+                connection.Refresh_A = true;
+
+            //updating entry
+            _context.Connections.Update(connection);
+            _context.SaveChanges();
 
             string sendingAddress = (connection.UserA_.UserID == sender.UserID) ? connection.AddressB : connection.AddressA;
 

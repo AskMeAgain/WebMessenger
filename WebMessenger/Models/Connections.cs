@@ -9,7 +9,10 @@ namespace WebMessenger.Models
     public class Connections
     {
         public int ConnectionsID { get; set; }
-        public byte RefreshCounter { get; set; }
+
+        public bool Refresh_A { get; set; }
+        public bool Refresh_B { get; set; }
+
         public string EncryptionKey { get; set; }
 
         public string AddressA { get; set; }
