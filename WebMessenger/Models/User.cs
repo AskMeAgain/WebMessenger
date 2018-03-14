@@ -12,6 +12,9 @@ namespace WebMessenger.Models {
 
         public string Seed { get; set; }
         public string PW { get; set; }
+        public string PW2 { get; set; }
+        public string Email { get; set; }
+
         public int AddressIndex { get; set; }
 
         public ICollection<AddressTable> Address { get; set; }

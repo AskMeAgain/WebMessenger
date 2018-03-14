@@ -44,6 +44,16 @@
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
+                    <label>Repeat Password</label>
+                    @Html.TextBoxFor(model => model.PW2, new { @class = "Inputfield", type = "password" })
+                </div>
+
+                <div class="Login_inputRow Login_Smaller">
+                    <label>Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "Inputfield"})
+                </div>
+
+                <div class="Login_inputRow Login_Smaller">
                     <label>Seed</label>
                     @Html.TextBoxFor(model => model.Seed, new { @class = "Inputfield", type = "password" })
                 </div>

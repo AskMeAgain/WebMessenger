@@ -55,6 +55,15 @@ namespace WebMessenger.Controllers {
             if (_context.User.Any(m => m.Name == user.Name))
                 return Content("Sorry Mate your username is used!");
 
+            //check if password is the same
+            if (!user.PW.Equals(user.PW2)) {
+                TempData["msg"] = "<script>alert('Password repeat is not the same');</script>";
+                return RedirectToAction("Login");
+            }
+
+            if (string.IsNullOrEmpty(user.Seed))
+                user.Seed = Seed.Random().ToString();
+
             _context.User.Add(user);
 
             await generateAddressFromUserAsync(user, 0, 4);

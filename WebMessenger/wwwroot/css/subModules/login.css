@@ -1,15 +1,14 @@
 ﻿.Login_Layout {
     position: absolute;
-    top: 30%;
+    top: 24%;
     left: 20%;
     right: 20%;
-    bottom: 30%;
+    bottom: 20%;
 }
 
 
 .Login_LoginPanel {
     width: 50%;
-    height: 100%;
     float: left;
 }
 
@@ -30,7 +29,7 @@
 }
 
 .Login_inputRow {
-    margin-top: 35px;
+    margin-top: 25px;
     line-height: 30px;
 }
 
@@ -46,12 +45,12 @@
 
     .Login_inputRow button {
         position: relative;
-        bottom: -10px;
+        bottom: 10px;
         height: 55px;
         width: 130px;
         font-size: 1.4em;
     }
 
 .Login_Smaller {
-    margin-top: 10px;
+    margin-top: 20px;
 }

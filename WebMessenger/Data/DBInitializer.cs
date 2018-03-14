@@ -8,7 +8,7 @@ namespace WebMessenger.Data {
     public static class DbInitializer {
         public static void Initialize(DataBaseContext context) {
 
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
 
             context.Database.EnsureCreated();
 
