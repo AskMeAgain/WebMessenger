@@ -254,7 +254,7 @@ namespace WebMessenger.Controllers {
                 else
                     entryName = conn.UserA_.Name;
 
-                ChatEntry entry = new ChatEntry(b, entryName, conn.GetKey());
+                ChatEntry entry = new ChatEntry(b, entryName, conn.EncryptionKey);
                 chatEntrys.Add(entry);
             }
 
@@ -312,10 +312,11 @@ namespace WebMessenger.Controllers {
 
             string sendingAddress = (connection.UserA_.UserID == sender.UserID) ? connection.AddressB : connection.AddressA;
 
+            string encryptedMsg = Utility.EncryptString(Message, connection.EncryptionKey);
 
             Transfer trans = new Transfer() {
                 Address = new Address(sendingAddress) { Balance = 0 },
-                Message = TryteString.FromAsciiString(Message),
+                Message = TryteString.FromAsciiString(encryptedMsg),
                 Tag = new Tag("CSHARP"),
                 Timestamp = Timestamp.UnixSecondsTimestamp
             };

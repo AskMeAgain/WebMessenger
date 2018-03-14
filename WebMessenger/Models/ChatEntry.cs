@@ -14,13 +14,17 @@ namespace WebMessenger.Models {
         public string Name { get; set; }
         public long TimeStamp { get; set; }
 
-        public ChatEntry(Bundle bundle, string name, TryteString encryptionKey) {
+        public ChatEntry(Bundle bundle, string name, string encryptionKey) {
 
             TransactionID = bundle.Transactions[0].Hash.ToString();
             Name = name;
 
             Message = bundle.Transactions[0].Fragment.ToAsciiString();
             TimeStamp = bundle.Transactions[0].Timestamp;
+
+            if (string.IsNullOrEmpty(Message)) {
+                Message = Utility.DecryptString(Message, encryptionKey);
+            }
 
         }
 
