@@ -17,6 +17,15 @@
                 <input class="GeneralButton Chat_SubmitButton WaitFor" type="submit" value="Add Friend" />
             }
         </div>
+
+        <div class="Chat_FunctionGroup">
+            <label class="Chat_SubSubHeadings">Add Request</label>
+            @using (Html.BeginForm("MakeRequestAsync", "Messenger", FormMethod.Post)) {
+                <input type="text" name="Name" class="Chat_Inputfunction Inputfield" />
+                <input class="GeneralButton Chat_SubmitButton WaitFor" type="submit" value="Request Chat" />
+            }
+        </div>
+
         <div class="Chat_FunctionGroup">
             <label class="Chat_SubSubHeadings">Select Chat</label>
             @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {

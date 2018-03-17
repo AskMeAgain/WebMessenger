@@ -356,5 +356,25 @@ namespace WebMessenger.Controllers {
         private string sanitizeMessage(string message) {
             return Regex.Replace(message, @"[^\u0000-\u007F]+", string.Empty);
         }
+
+        public async Task<IActionResult> MakeRequestAsync(string name) {
+
+            //get receiver
+            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
+            User receiver = await _context.User.SingleAsync(m => m.Name.Equals(name));
+            User sender = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+
+            //create Request
+            Request req = new Request() {
+                Sender = sender,
+                Receiver = receiver               
+            };
+
+            _context.Requests.Add(req);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
+
+        }
     }
 }
