@@ -42,7 +42,6 @@ namespace WebMessenger.Controllers {
 
             return RedirectToAction("Overview");
 
-
         }
 
         public ActionResult Overview(string id) {
@@ -63,10 +62,22 @@ namespace WebMessenger.Controllers {
                 ViewData["ConnectionList"] = list;
             }
 
+            if (id != null && id.Equals("Chat")) {
+                //selected chat is in session
+                string[] list = new string[] {
+                    "lol", "lol2", "333"
+                };
+
+                ViewData["ChatList"] = list;
+            }
+
             return View();
         }
 
-
+        public ActionResult ShowSpecificChat(string connection) {
+            HttpContext.Session.SetString("SelectedUser", connection);
+            return RedirectToAction("Overview", new { id = "Chat" });
+        }
 
 
         public ActionResult Login() {

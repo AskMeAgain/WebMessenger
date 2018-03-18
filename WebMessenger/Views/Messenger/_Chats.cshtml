@@ -1,11 +1,12 @@
 ﻿@model WebMessenger.Models.Connections[]
 
 <label>Chats </label>
-
+<br />
 @{
 
     foreach (Connections con in Model) {
-        <label>@con.UserA_.Name @con.UserB_.Name</label>
+        @using (Html.BeginForm("ShowSpecificChat", "Messenger", FormMethod.Post)) {
+            <button name="connection" type="submit" value="@con.ConnectionsID">@con.ConnectionsID</button>}
     }
 
 }
