@@ -40,10 +40,34 @@ namespace WebMessenger.Controllers {
 
             HttpContext.Session.SetObjectAsJson("User", entity);
 
-            return RedirectToAction("ChatAsync");
+            return RedirectToAction("Overview");
 
 
         }
+
+        public ActionResult Overview(string id) {
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+
+            ViewData["Local"] = local;
+            ViewData["Current"] = id;
+
+            if (id != null && id.Equals("OpenRequests")) {
+
+                //get all open requests
+                Request[] list = GetAllReceiverRequests(local.Name);
+                ViewData["RequestList"] = list;
+            }
+
+            if (id != null && id.Equals("ShowChats")) {
+                Connections[] list = getAllConnections(local);
+                ViewData["ConnectionList"] = list;
+            }
+
+            return View();
+        }
+
+
+
 
         public ActionResult Login() {
             return View();
@@ -73,29 +97,29 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public ActionResult Home() {
+        //public ActionResult Home() {
 
-            User user = HttpContext.Session.GetObjectFromJson<User>("User");
+        //    User user = HttpContext.Session.GetObjectFromJson<User>("User");
 
-            if (user == null)
-                return Content("empty!");
-            List<AddressTable> addrList = getAllAddressTable(user);
-            List<Connections> connList = getAllConnections(user);
+        //    if (user == null)
+        //        return Content("empty!");
+        //    List<AddressTable> addrList = getAllAddressTable(user);
+        //    List<Connections> connList = getAllConnections(user);
 
-            ViewModel model = new ViewModel() {
-                AddressList = addrList,
-                User = user,
-                ConnectionList = connList
-            };
+        //    ViewModel model = new ViewModel() {
+        //        AddressList = addrList,
+        //        User = user,
+        //        ConnectionList = connList
+        //    };
 
-            return View(model);
+        //    return View(model);
 
-        }
+        //}
 
-        private List<Connections> getAllConnections(User user) {
+        private Connections[] getAllConnections(User user) {
             return (from c in _context.Connections
                     where (c.UserA_ == user || c.UserB_ == user)
-                    select c).Include("UserA_").Include("UserB_").ToList();
+                    select c).Include("UserA_").Include("UserB_").ToArray();
         }
 
         private List<AddressTable> getAllAddressTable(User user) {
@@ -184,11 +208,11 @@ namespace WebMessenger.Controllers {
             if (HttpContext.Session.GetObjectFromJson<User>("User") == null)
                 return RedirectToAction("Login");
 
-            List<User> userList = getFriends();
-
-            List<ChatEntry> chatEntrys = new List<ChatEntry>();
+            List<User> friendList = getFriends();
 
             //if its not null we are looking into a chat
+            List<ChatEntry> chatEntrys = new List<ChatEntry>();
+
             if (!string.IsNullOrEmpty(id)) {
 
                 //store selected User
@@ -210,15 +234,37 @@ namespace WebMessenger.Controllers {
                 }
             }
 
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+
+
             User_Chat temp = new User_Chat {
                 Chat = chatEntrys,
                 selectedChat = id,
-                Friends = userList,
-                LocalUser = HttpContext.Session.GetObjectFromJson<User>("User")
+                Friends = friendList,
+                LocalUser = local
             };
 
             return View(temp);
 
+        }
+
+        public ActionResult ShowChats() {
+            return RedirectToAction("Overview", new { id = "ShowChats" });
+        }
+
+        public ActionResult ShowAddFriend() {
+            return RedirectToAction("Overview", new { id = "AddFriend" });
+        }
+
+        public ActionResult ShowRequests() {
+            return RedirectToAction("Overview", new { id = "OpenRequests" });
+        }
+
+        public Request[] GetAllReceiverRequests(string name) {
+
+            return (from c in _context.Requests
+                    where (c.Receiver.Name.Equals(name))
+                    select c).Include("Sender").Include("Receiver").ToArray();
         }
 
         public async Task<List<ChatEntry>> getChatAsync(string name) {
@@ -286,7 +332,7 @@ namespace WebMessenger.Controllers {
             User thisUser = HttpContext.Session.GetObjectFromJson<User>("User");
 
             //get all friends
-            List<Connections> connList = getAllConnections(thisUser);
+            Connections[] connList = getAllConnections(thisUser);
 
             List<User> userList = new List<User>();
 
@@ -367,7 +413,7 @@ namespace WebMessenger.Controllers {
             //create Request
             Request req = new Request() {
                 Sender = sender,
-                Receiver = receiver               
+                Receiver = receiver
             };
 
             _context.Requests.Add(req);

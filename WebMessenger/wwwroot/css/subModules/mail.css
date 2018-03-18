@@ -1,101 +1,24 @@
-﻿.layout {
+﻿#layout {
     position: absolute;
     left: 20%;
     right: 20%;
-    top: 20%;
-    bottom: 20%;
-    background-color: var(--maincolor);
+    top: 15%;
+    bottom: 15%;
+    background-color: black;
 }
 
-.Chat_ButtonPanel {
-    float: left;
-    width: 30%;
-    height: 100%;
-}
 
-.Chat_ChatPanel {
-    float: left;
-    width: 70%;
-    height: 100%;
-}
-
-.Chat_SubSubHeadings {
-    font-size: 1.4em;
-}
-
-.Chat_FunctionGroup {
-    margin-top: 60px;
-    margin-left: 10px;
-    line-height: 40px;
-}
-
-.Chat_SubmitButton {
-    display: block;
-    width: 100px;
-    position: absolute;
-    left: 16%;
-    height: 30px;
-    margin-left: 50px;
-}
-
-.Chat_Inputfunction {
-    display: block;
-    float: left;
-    width: 60%;
-    height: 31px;
-}
-
-.Chat_DropDown {
-    transition: all 0.2s ease-out;
-    outline-style: solid;
-    outline-color: var(--maincolor);
-    text-decoration-style: none;
-    border: none;
-    color: var(--maincolor);
-    font-weight: bold;
-    font-family: Calibri;
-    font-size: 1.3em;
-}
-
-    .Chat_DropDown:hover {
-        outline-color: white;
-        background-color: var(--maincolor);
-        color: white;
-    }
-
-.Chat_ChatPanel_Input {
-    position: absolute;
-    bottom: 15px;
+#Chat_Navigation {
     width: 100%;
-    margin-left: 10px;
+    height: 100px;
+    background-color: red;
 }
 
-.Chat_ChatPanel_Display {
-    position: absolute;
-    bottom: 65px;
-    margin-left: 10px;
-}
-
-.Chat_ChatPanel_Inputfield {
-    width: 55%;
-    height: 30px;
-}
-
-.Chat_ChatPanel_SendButton {
-    width: 90px;
-    height: 34px;
-    position: absolute;
-    right: 33%;
-}
-
-#linkElement {
-    display: table-cell;
-    width: 80px;
-    margin:auto;
-    text-align:center;
-}
-
-
-.Chat_ChatPanel_toolBox {
-    
+#Chat_MainFrame {
+    background-color: green;
+    position:absolute;
+    top:100px;
+    left: 0px;
+    right:0px;
+    bottom:0px;
 }

@@ -1,5 +1,4 @@
-﻿
-@model WebMessenger.Models.User_Chat
+﻿@model WebMessenger.Models.User_Chat
 
 @if (!string.IsNullOrEmpty(Model.selectedChat)) {
     @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
@@ -13,6 +12,13 @@
 }
 
 @{
+    if (ViewData.ContainsKey("OpenRequests")) {
+        List<Request> list = ViewData["OpenRequests"] as List<Request>;
+        if (list.Count > 0) {
+            @Html.Partial("_DisplayOpenRequests", list);
+        }
+    }
+
     if (!string.IsNullOrEmpty(Model.selectedChat)) {
 
         <div class="Chat_ChatPanel_Display">

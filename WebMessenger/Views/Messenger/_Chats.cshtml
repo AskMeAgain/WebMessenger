@@ -1,0 +1,11 @@
+﻿@model WebMessenger.Models.Connections[]
+
+<label>Chats </label>
+
+@{
+
+    foreach (Connections con in Model) {
+        <label>@con.UserA_.Name @con.UserB_.Name</label>
+    }
+
+}

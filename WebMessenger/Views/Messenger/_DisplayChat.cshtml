@@ -1,0 +1,9 @@
+﻿@model string[]
+
+<label>Chat:</label>
+
+@{
+    foreach (string s in Model) {
+        <label>@s</label>
+    }
+}

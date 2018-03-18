@@ -1,0 +1,92 @@
+﻿@model WebMessenger.Models.User_Chat
+
+@Html.Partial("_NavBar", ViewData["Local"])
+
+<div id="layout">
+    <div id="Chat_Navigation">
+        @Html.Partial("_Chat_Navigation")
+    </div>
+    <div id="Chat_MainFrame">
+
+        @{
+            if (ViewData["Current"] != null) {
+
+                string currentSite = (string)ViewData["Current"];
+
+                if (currentSite.Equals("OpenRequests")) {
+                    Request[] list = ViewData["RequestList"] as Request[];
+                    @Html.Partial("_DisplayOpenRequests", list);
+                }
+
+                if (currentSite.Equals("AddFriend")) {
+                    @Html.Partial("_AddFriend");
+                }
+
+                if (currentSite.Equals("ShowChats")) {
+                    Connections[] list = ViewData["ConnectionList"] as Connections[];
+                    @Html.Partial("_Chats", list);
+                }
+
+                if (currentSite.Equals("Chat")) {
+                    string[] list = ViewData["ChatList"] as string[];
+                    @Html.Partial("_DisplayChat", list);
+                }
+
+            } else {
+                <label>ViewData is empty</label>
+            }
+        }
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="Chat_FunctionGroup">
+
+    </div>
+
+    <div class="Chat_FunctionGroup">
+        <label class="Chat_SubSubHeadings">Add Request</label>
+        @using (Html.BeginForm("MakeRequestAsync", "Messenger", FormMethod.Post)) {
+            <input type="text" name="Name" class="Chat_Inputfunction Inputfield" />
+            <input class="GeneralButton Chat_SubmitButton WaitFor" type="submit" value="Request Chat" />
+        }
+    </div>
+
+    <div class="Chat_FunctionGroup">
+        <label class="Chat_SubSubHeadings">Select Chat</label>
+        @using (Html.BeginForm("ChatAsync", "Messenger", FormMethod.Post)) {
+            <select name="id" class="Chat_Inputfunction Chat_DropDown WaitFor">
+                @foreach (User user in Model.Friends) {
+                    <option value="@user.Name">@user.Name</option>
+                }
+            </select>
+            <input class="GeneralButton Chat_SubmitButton WaitFor" type="submit" value="Show Chat" />
+
+        }
+    </div>*@
