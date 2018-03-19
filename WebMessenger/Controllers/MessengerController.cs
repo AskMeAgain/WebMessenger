@@ -63,19 +63,22 @@ namespace WebMessenger.Controllers {
             }
 
             if (id != null && id.Equals("Chat")) {
-                //selected chat is in session
-                string[] list = new string[] {
-                    "lol", "lol2", "333"
-                };
-
-                ViewData["ChatList"] = list;
+                ViewData["ChatList"] = HttpContext.Session.GetObjectFromJson<List<ChatEntry>>("ChatList");
             }
 
             return View();
         }
 
-        public ActionResult ShowSpecificChat(string connection) {
-            HttpContext.Session.SetString("SelectedUser", connection);
+        public async Task<ActionResult> ShowSpecificChatAsync(string connection) {
+
+            Connections conn = await _context.Connections.Include("UserA_").Include("UserB_").SingleAsync(m => m.ConnectionsID == int.Parse(connection));
+
+            //storing the connection as selected
+            HttpContext.Session.SetObjectAsJson("SelectedConnection", conn);
+
+            List<ChatEntry> list = await getChatAsync(conn);
+            HttpContext.Session.SetObjectAsJson("ChatList", list);
+
             return RedirectToAction("Overview", new { id = "Chat" });
         }
 
@@ -214,50 +217,50 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<ActionResult> ChatAsync(string id) {
+        //public async Task<ActionResult> ChatAsync(string id) {
 
-            if (HttpContext.Session.GetObjectFromJson<User>("User") == null)
-                return RedirectToAction("Login");
+        //    if (HttpContext.Session.GetObjectFromJson<User>("User") == null)
+        //        return RedirectToAction("Login");
 
-            List<User> friendList = getFriends();
+        //    List<User> friendList = getFriends();
 
-            //if its not null we are looking into a chat
-            List<ChatEntry> chatEntrys = new List<ChatEntry>();
+        //    //if its not null we are looking into a chat
+        //    List<ChatEntry> chatEntrys = new List<ChatEntry>();
 
-            if (!string.IsNullOrEmpty(id)) {
+        //    if (!string.IsNullOrEmpty(id)) {
 
-                //store selected User
-                if (_context.User.Any(m => m.Name.Equals(id))) {
-                    User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
-                    HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
-                    chatEntrys = await getChatAsync(id);
+        //        //store selected User
+        //        if (_context.User.Any(m => m.Name.Equals(id))) {
+        //            User sel = await _context.User.SingleAsync(m => m.Name.Equals(id));
+        //            HttpContext.Session.SetObjectAsJson("SelectedUser", sel);
+        //            chatEntrys = await getChatAsync(id);
 
-                    //chatEntrys = new List<ChatEntry>() {
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry(),
-                    //new ChatEntry()
-                    //};
-                }
-            }
+        //            //chatEntrys = new List<ChatEntry>() {
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry(),
+        //            //new ChatEntry()
+        //            //};
+        //        }
+        //    }
 
-            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+        //    User local = HttpContext.Session.GetObjectFromJson<User>("User");
 
 
-            User_Chat temp = new User_Chat {
-                Chat = chatEntrys,
-                selectedChat = id,
-                Friends = friendList,
-                LocalUser = local
-            };
+        //    User_Chat temp = new User_Chat {
+        //        Chat = chatEntrys,
+        //        selectedChat = id,
+        //        Friends = friendList,
+        //        LocalUser = local
+        //    };
 
-            return View(temp);
+        //    return View(temp);
 
-        }
+        //}
 
         public ActionResult ShowChats() {
             return RedirectToAction("Overview", new { id = "ShowChats" });
@@ -278,18 +281,16 @@ namespace WebMessenger.Controllers {
                     select c).Include("Sender").Include("Receiver").ToArray();
         }
 
-        public async Task<List<ChatEntry>> getChatAsync(string name) {
+        public async Task<List<ChatEntry>> getChatAsync(Connections conn) {
 
             List<ChatEntry> chatEntrys = new List<ChatEntry>();
 
-            User local = HttpContext.Session.GetObjectFromJson<User>("User");
-            User other = _context.User.Single(m => m.Name.Equals(name));
+            User User_A = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserA_.Name));
+            User User_B = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserB_.Name));
 
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
 
             var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
-
-            //get connection of users
-            Connections conn = await getConnectionFromTwoIDsAsync(local.UserID, other.UserID);
 
             //set refresh bools
             if (conn.UserA_.Name.Equals(local.Name))
@@ -372,9 +373,8 @@ namespace WebMessenger.Controllers {
             var mask = new CurlMask();
 
             User sender = HttpContext.Session.GetObjectFromJson<User>("User");
-            User receiver = HttpContext.Session.GetObjectFromJson<User>("SelectedUser");
 
-            Connections connection = await getConnectionFromTwoIDsAsync(sender.UserID, receiver.UserID);
+            Connections connection = HttpContext.Session.GetObjectFromJson<Connections>("SelectedConnection");
 
             //set refresh bools
             if (connection.UserA_.Name.Equals(sender.Name))
@@ -407,7 +407,7 @@ namespace WebMessenger.Controllers {
             //sending the message
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
-            return RedirectToAction("ChatAsync", new { id = receiver.Name });
+            return RedirectToAction("Overview", new { id = "Chat" });
         }
 
         private string sanitizeMessage(string message) {

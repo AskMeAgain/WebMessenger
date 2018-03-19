@@ -4,21 +4,64 @@
     right: 20%;
     top: 15%;
     bottom: 15%;
-    background-color: black;
 }
 
 
 #Chat_Navigation {
     width: 100%;
-    height: 100px;
-    background-color: red;
+    height: 80px;
+    background-color: var(--maincolor);
 }
 
 #Chat_MainFrame {
     background-color: green;
-    position:absolute;
-    top:100px;
+    position: absolute;
+    top: 84px;
     left: 0px;
-    right:0px;
-    bottom:0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.Chat_NavigationButton {
+    display:block;
+    float:left;
+    line-height:80px;
+    background-color:cornflowerblue;
+    text-align:center;
+    outline-style:solid;
+    outline-color:white;
+    outline-width:4px;
+    font-family:Calibri;
+    font-size:2em;
+    text-decoration:none;
+    color:white;
+    padding-left:30px;
+    padding-right:30px;
+    font-weight:bold;
+    transition:all 0.2s ease-out;
+}
+
+    .Chat_NavigationButton + .Chat_NavigationButton {
+        margin-left: 4px;
+    }
+
+    .Chat_NavigationButton:hover {
+        background-color:white;
+        color:var(--maincolor);
+    
+    
+    
+    }
+
+#Chat_SubmitButton {
+    position: absolute;
+    bottom: 10px;
+    right:10px;
+}
+
+#Chat_Inputfield {
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    width:88%;
 }

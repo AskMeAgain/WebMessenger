@@ -1,9 +1,14 @@
-﻿@model string[]
+﻿@model List<WebMessenger.Models.ChatEntry>
 
-<label>Chat:</label>
+<label class="General_MainFrameHeading">Chat</label>
 
 @{
-    foreach (string s in Model) {
-        <label>@s</label>
+    foreach (ChatEntry entry in Model) {
+        <label>@entry.Message</label>
     }
+}
+
+@using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
+    <input type="text" name="Message" id="Chat_Inputfield" />
+    <input type="submit" id="Chat_SubmitButton" value="Request Chat" />
 }

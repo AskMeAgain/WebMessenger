@@ -28,13 +28,11 @@
                 }
 
                 if (currentSite.Equals("Chat")) {
-                    string[] list = ViewData["ChatList"] as string[];
+                    List<ChatEntry> list = ViewData["ChatList"] as List<ChatEntry>;
                     @Html.Partial("_DisplayChat", list);
                 }
 
-            } else {
-                <label>ViewData is empty</label>
-            }
+            } 
         }
 
     </div>
