@@ -1,6 +1,9 @@
 ﻿
-<label class="General_MainFrameHeading">Add Friend</label>
-@using (Html.BeginForm("MakeConnectionAsync", "Messenger", FormMethod.Post)) {
-    <input type="text" name="Name" />
-    <input class="WaitFor" type="submit" value="Add Friend" />
-}
+<label class="General_MainFrameHeading">Add Chat</label>
+
+<div class="Chat_ContentFrame">
+    @using (Html.BeginForm("MakeRequestAsync", "Messenger", FormMethod.Post)) {
+        <input type="text" class="General_Inputfield" id="Chat_Inputfield" name="Name" />
+        <input class="WaitFor General_Button" type="submit" id="Chat_SubmitButton" value="Add Friend" />
+    }
+</div>

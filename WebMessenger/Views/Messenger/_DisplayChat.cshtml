@@ -2,13 +2,29 @@
 
 <label class="General_MainFrameHeading">Chat</label>
 
-@{
-    foreach (ChatEntry entry in Model) {
-        <label>@entry.Message</label>
-    }
-}
 
-@using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
-    <input type="text" name="Message" id="Chat_Inputfield" />
-    <input type="submit" id="Chat_SubmitButton" value="Request Chat" />
-}
+<div class="Chat_ContentFrame">
+    <table id="Chat_Table">
+        @{
+            foreach (ChatEntry entry in Model) {
+                <tr>
+                    <td>
+                        @{
+                            string link = "https://thetangle.org/transaction/" + entry.TransactionID;
+                        }
+                        <form target="_blank" action="@link">
+                            <input class="General_Button" id="Chat_ProofButton" type="submit" value="Check" />
+                        </form>
+                    </td>
+                    <td class="Chat_ChatName">@entry.Name</td>
+                    <td class="Chat_ChatMessage">@entry.Message</td>
+                </tr>
+            }
+        }
+    </table>
+
+    @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
+        <input type="text" name="Message" id="Chat_Inputfield" class="General_Inputfield" />
+        <input type="submit" id="Chat_SubmitButton" class="General_Button WaitFor" value="Send" />
+    }
+</div>

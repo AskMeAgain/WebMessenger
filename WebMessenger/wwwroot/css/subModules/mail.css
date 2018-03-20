@@ -14,7 +14,7 @@
 }
 
 #Chat_MainFrame {
-    background-color: green;
+    background-color: var(--maincolor);
     position: absolute;
     top: 84px;
     left: 0px;
@@ -23,22 +23,22 @@
 }
 
 .Chat_NavigationButton {
-    display:block;
-    float:left;
-    line-height:80px;
-    background-color:cornflowerblue;
-    text-align:center;
-    outline-style:solid;
-    outline-color:white;
-    outline-width:4px;
-    font-family:Calibri;
-    font-size:2em;
-    text-decoration:none;
-    color:white;
-    padding-left:30px;
-    padding-right:30px;
-    font-weight:bold;
-    transition:all 0.2s ease-out;
+    display: block;
+    float: left;
+    line-height: 80px;
+    background-color: cornflowerblue;
+    text-align: center;
+    outline-style: solid;
+    outline-color: white;
+    outline-width: 4px;
+    font-family: Calibri;
+    font-size: 2em;
+    text-decoration: none;
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: bold;
+    transition: all 0.2s ease-out;
 }
 
     .Chat_NavigationButton + .Chat_NavigationButton {
@@ -46,22 +46,72 @@
     }
 
     .Chat_NavigationButton:hover {
-        background-color:white;
-        color:var(--maincolor);
-    
-    
-    
+        background-color: white;
+        color: var(--maincolor);
     }
 
 #Chat_SubmitButton {
     position: absolute;
     bottom: 10px;
-    right:10px;
+    right: 15px;
+    height: 35px;
 }
 
 #Chat_Inputfield {
-    position:absolute;
-    bottom:10px;
-    left:10px;
-    width:88%;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 88%;
+}
+
+.Chat_ContentFrame {
+    background-color: var(--maincolor);
+    position: absolute;
+    top: 90px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+}
+
+.Chat_ConnectionDisplay {
+    display: block;
+    font-size: 2em;
+    color: white;
+    background-color: var(--maincolor);
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 7px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: absolute;
+    left: 30px;
+}
+
+    .Chat_ConnectionDisplay:hover {
+        color: var(--maincolor);
+        background-color: white;
+    }
+
+#Chat_Table {
+    position: absolute;
+    bottom: 70px;
+}
+
+.Chat_ChatName {
+    padding-left: 20px;
+    line-height: 30px;
+    padding-right: 50px;
+}
+
+td {
+    font-size: 1.5em;
+    color: white;
+}
+
+#Chat_ProofButton {
+    font-size:0.5em;
+    line-height:30px;
+    border-width:2px;
 }

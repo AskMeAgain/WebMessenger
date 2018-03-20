@@ -1,11 +1,14 @@
 ﻿@model WebMessenger.Models.Connections[]
 
 <label class="General_MainFrameHeading">Chats</label>
-@{
+<div class="Chat_ContentFrame">
+    @{
 
-    foreach (Connections con in Model) {
-        @using (Html.BeginForm("ShowSpecificChatAsync", "Messenger", FormMethod.Post)) {
-            <button name="connection" type="submit" value="@con.ConnectionsID">@con.ConnectionsID</button>}
+        foreach (Connections con in Model) {
+            @using (Html.BeginForm("ShowSpecificChatAsync", "Messenger", FormMethod.Post)) {
+                <button class="Chat_ConnectionDisplay WaitFor" name="connection" type="submit" value="@con.ConnectionsID">@con.UserA_.Name and @con.UserB_.Name</button>
+            }
+        }
+
     }
-
-}
+</div>

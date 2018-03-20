@@ -407,7 +407,7 @@ namespace WebMessenger.Controllers {
             //sending the message
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
-            return RedirectToAction("Overview", new { id = "Chat" });
+            return RedirectToAction("ShowSpecificChatAsync", new { connection = connection.ConnectionsID });
         }
 
         private string sanitizeMessage(string message) {
