@@ -2,6 +2,14 @@
     --maincolor: cornflowerblue;
 }
 
+html * {
+    font-family: Calibri;
+    font-weight: bold;
+    transition: all 0.2s ease-out;
+}
+
+
+
 .General_MainFrameHeading {
     font-size: 3em;
     width: 100%;
@@ -10,8 +18,44 @@
     left: 0px;
     right: 0px;
     text-align: center;
-    font-family: Calibri;
+}
+
+.General_Inputfield {
+    background-color: white;
+    border: solid;
+    border-color: var(--maincolor);
+    border-radius: 7px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--maincolor);
+    padding-left:3px;
+}
+
+    .General_Inputfield:hover {
+        border-color: white;
+        background-color: var(--maincolor);
+        color:white;
+    }
+
+label {
+    color: white;
 }
 
 
+.General_Button {
+    background-color: var(--maincolor);
+    border-color: white;
+    box-shadow: none;
+    border-style: solid;
+    border-radius: 7px;
+    border-width: 3px;
+    color: white;
+    font-size: 0.9em;
+}
 
+    .General_Button:hover {
+        background-color: white;
+        color: var(--maincolor);
+    }

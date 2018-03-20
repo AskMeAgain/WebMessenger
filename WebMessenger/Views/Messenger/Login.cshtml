@@ -16,14 +16,14 @@
 
                 <div class="Login_inputRow">
                     <label>Name</label>
-                    @Html.TextBoxFor(model => model.Name, new { @class = "Inputfield" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "General_Inputfield" })
                 </div>
                 <div class="Login_inputRow">
                     <label>Password</label>
-                    @Html.TextBoxFor(model => model.PW, new { @class = "Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.PW, new { @class = "General_Inputfield", type = "password" })
                 </div>
                 <div class="Login_inputRow">
-                    <button type="submit">Login</button>
+                    <button class="General_Button" type="submit">Login</button>
                 </div>
             }
         </div>
@@ -35,32 +35,26 @@
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Name</label>
-                    @Html.TextBoxFor(model => model.Name, new { @class = "Inputfield" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "General_Inputfield" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Password</label>
-                    @Html.TextBoxFor(model => model.PW, new { @class = "Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.PW, new { @class = "General_Inputfield", type = "password" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Repeat Password</label>
-                    @Html.TextBoxFor(model => model.PW2, new { @class = "Inputfield", type = "password" })
+                    @Html.TextBoxFor(model => model.PW2, new { @class = "General_Inputfield", type = "password" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Email</label>
-                    @Html.TextBoxFor(model => model.Email, new { @class = "Inputfield"})
+                    @Html.TextBoxFor(model => model.Email, new { @class = "General_Inputfield" })
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
-                    <label>Seed</label>
-                    @Html.TextBoxFor(model => model.Seed, new { @class = "Inputfield", type = "password" })
-                </div>
-
-                <div class="Login_inputRow Login_Smaller">
-
-                    <button class="submitButtonTable WaitFor" type="submit">Register</button>
+                    <button class="General_Button WaitFor" type="submit">Register</button>
                 </div>
 
             }
