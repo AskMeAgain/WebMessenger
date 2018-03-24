@@ -14,8 +14,7 @@
                 string currentSite = (string)ViewData["Current"];
 
                 if (currentSite.Equals("OpenRequests")) {
-                    Request[] list = ViewData["RequestList"] as Request[];
-                    @Html.Partial("_DisplayOpenRequests", list);
+                    @Html.Partial("_DisplayOpenRequests");
                 }
 
                 if (currentSite.Equals("AddFriend")) {

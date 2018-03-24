@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "e2a76b546e6beb2e8d15dfc226dd19e9d4925f89"
+    "signature": "69904839d027f00f3fdc0eca0b3037fa59185c50"
   },
   "compilationOptions": {
     "defines": [
@@ -27,6 +27,7 @@
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.2",
+          "System.ValueTuple": "4.5.0-preview1-26216-02",
           "Tangle.Net": "1.0.6",
           "Tangle.Net.Mam": "0.5.0",
           "jQuery": "3.3.1",
@@ -1440,7 +1441,7 @@
           "System.Threading.Tasks": "4.3.0",
           "System.Threading.Tasks.Parallel": "4.3.0",
           "System.Threading.Thread": "4.3.0",
-          "System.ValueTuple": "4.4.0",
+          "System.ValueTuple": "4.5.0-preview1-26216-02",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0",
           "System.Xml.XPath.XDocument": "4.3.0",
@@ -2071,7 +2072,7 @@
           "Microsoft.Extensions.Logging": "2.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
           "Microsoft.Extensions.Logging.Configuration": "2.0.0",
-          "System.ValueTuple": "4.4.0"
+          "System.ValueTuple": "4.5.0-preview1-26216-02"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.AzureAppServices.dll": {}
@@ -2544,7 +2545,7 @@
       },
       "RestSharp/106.2.1": {
         "dependencies": {
-          "System.ValueTuple": "4.4.0"
+          "System.ValueTuple": "4.5.0-preview1-26216-02"
         },
         "runtime": {
           "lib/netstandard2.0/RestSharp.dll": {}
@@ -3972,7 +3973,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ValueTuple/4.4.0": {},
+      "System.ValueTuple/4.5.0-preview1-26216-02": {},
       "System.Xml.ReaderWriter/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -6390,12 +6391,12 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "System.ValueTuple/4.4.0": {
+    "System.ValueTuple/4.5.0-preview1-26216-02": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
-      "path": "system.valuetuple/4.4.0",
-      "hashPath": "system.valuetuple.4.4.0.nupkg.sha512"
+      "sha512": "sha512-azzokbU/I1xEuP+htdvnDHnioIytkhNMMNGJ4EgBt+cb/Gb0+m/niHKjiYFjNmN/edQOz75WYZ1OVQRvEOCwwA==",
+      "path": "system.valuetuple/4.5.0-preview1-26216-02",
+      "hashPath": "system.valuetuple.4.5.0-preview1-26216-02.nupkg.sha512"
     },
     "System.Xml.ReaderWriter/4.3.0": {
       "type": "package",

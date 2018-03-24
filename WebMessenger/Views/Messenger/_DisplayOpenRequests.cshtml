@@ -1,14 +1,31 @@
-﻿@model WebMessenger.Models.Request[]
-
-<label class="General_MainFrameHeading">Open Requests</label>
+﻿<label class="General_MainFrameHeading">Open Requests</label>
 <div class="Chat_ContentFrame">
-    @{ if (Model != null) {
-            if (Model.Length > 0) {
+    <label>Outcoming Requests</label>
 
-                foreach (Request req in Model) {
+    @{
+        Request[] list1 = ViewData["RequestList1"] as Request[];
+
+        if (list1 != null) {
+            if (list1.Length > 0) {
+
+                foreach (Request req in list1) {
                     @using (Html.BeginForm("AcceptRequestAsync", "Messenger", FormMethod.Post)) {
                         <button class="Chat_ConnectionDisplay WaitFor" name="connection" type="submit" value="@req.RequestID">@req.Sender.Name and @req.Receiver.Name</button>
                     }
+                }
+            } else {
+                <label>No Requests</label>
+            }
+        }
+    }
+
+    <label>Incoming Requests</label>
+    @{
+        Request[] list2 = ViewData["RequestList2"] as Request[];
+        if (list2 != null) {
+            if (list2.Length > 0) {
+                foreach (Request req in list2) {
+                    <label>@req.Sender.Name and @req.Receiver.Name</label>
                 }
             } else {
                 <label>No open Requests</label>

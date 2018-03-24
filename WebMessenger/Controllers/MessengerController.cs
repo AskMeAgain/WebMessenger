@@ -54,7 +54,9 @@ namespace WebMessenger.Controllers {
 
                 //get all open requests
                 Request[] list = GetAllReceiverRequests(local.Name);
-                ViewData["RequestList"] = list;
+                ViewData["RequestList1"] = list;
+                Request[] list2 = GetAllSenderRequests(local.Name);
+                ViewData["RequestList2"] = list2;
             }
 
             if (id != null && id.Equals("ShowChats")) {
@@ -275,9 +277,14 @@ namespace WebMessenger.Controllers {
         }
 
         public Request[] GetAllReceiverRequests(string name) {
-
             return (from c in _context.Requests
                     where (c.Receiver.Name.Equals(name))
+                    select c).Include("Sender").Include("Receiver").ToArray();
+        }
+
+        public Request[] GetAllSenderRequests(string name) {
+            return (from c in _context.Requests
+                    where (c.Sender.Name.Equals(name))
                     select c).Include("Sender").Include("Receiver").ToArray();
         }
 
@@ -449,6 +456,9 @@ namespace WebMessenger.Controllers {
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
             User receiver = await _context.User.SingleAsync(m => m.Name.Equals(name));
             User sender = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+
+            //add address
+            await generateAddressFromUserAsync(sender, sender.AddressIndex, sender.AddressIndex + 1);
 
             //create Request
             Request req = new Request() {

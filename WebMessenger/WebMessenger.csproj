@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0-preview1-26216-02" />
     <PackageReference Include="Tangle.Net" Version="1.0.6" />
     <PackageReference Include="Tangle.Net.Mam" Version="0.5.0" />
   </ItemGroup>
