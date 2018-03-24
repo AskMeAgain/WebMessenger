@@ -1,15 +1,18 @@
 ﻿@model WebMessenger.Models.Request[]
 
 <label class="General_MainFrameHeading">Open Requests</label>
+<div class="Chat_ContentFrame">
+    @{ if (Model != null) {
+            if (Model.Length > 0) {
 
-@{
-    if (Model != null) {
-        if (Model.Length > 0) {
-            foreach (Request req in Model) {
-                <label>@req.Sender.Name is sending a chat request</label>
+                foreach (Request req in Model) {
+                    @using (Html.BeginForm("AcceptRequestAsync", "Messenger", FormMethod.Post)) {
+                        <button class="Chat_ConnectionDisplay WaitFor" name="connection" type="submit" value="@req.RequestID">@req.Sender.Name and @req.Receiver.Name</button>
+                    }
+                }
+            } else {
+                <label>No open Requests</label>
             }
-        } else {
-            <label>No open Requests</label>
         }
     }
-}
+</div>

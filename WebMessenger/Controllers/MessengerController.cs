@@ -414,6 +414,35 @@ namespace WebMessenger.Controllers {
             return Regex.Replace(message, @"[^\u0000-\u007F]+", string.Empty);
         }
 
+        public async Task<IActionResult> AcceptRequestAsync(string connection) {
+
+            int ID = int.Parse(connection);
+
+            //check first if ID exists
+            Request req = await _context.Requests.Include("Sender").Include("Receiver").SingleOrDefaultAsync(m => m.RequestID == ID);
+
+            if (req == null)
+                return RedirectToAction("ShowRequests");
+
+            //make connection
+            //find other user
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+            User other;
+
+            other = (local.Name.Equals(req.Sender.Name)) ? req.Receiver : req.Sender;
+
+            await MakeConnectionAsync(other);
+
+            //add new address
+            await generateAddressFromUserAsync(other, other.AddressIndex, other.AddressIndex + 1);
+
+            //remove request
+            _context.Requests.Remove(req);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ShowRequests");
+        }
+
         public async Task<IActionResult> MakeRequestAsync(string name) {
 
             //get receiver
@@ -430,7 +459,7 @@ namespace WebMessenger.Controllers {
             _context.Requests.Add(req);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
+            return RedirectToAction("ShowAddFriend");
 
         }
     }
