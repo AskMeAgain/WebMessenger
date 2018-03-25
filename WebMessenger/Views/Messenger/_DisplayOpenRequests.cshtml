@@ -1,35 +1,51 @@
 ﻿<label class="General_MainFrameHeading">Open Requests</label>
 <div class="Chat_ContentFrame">
-    <label>Outcoming Requests</label>
+    <div class="Chat_RequestLayout">
 
-    @{
-        Request[] list1 = ViewData["RequestList1"] as Request[];
 
-        if (list1 != null) {
-            if (list1.Length > 0) {
+        <div class="Chat_RequestLayout">
+            <label class="Chat_RequestHeading">Incoming Requests</label>
+            <div class="Chat_OverflowEntrys">
+                @{
+                    Request[] list1 = ViewData["RequestList1"] as Request[];
 
-                foreach (Request req in list1) {
-                    @using (Html.BeginForm("AcceptRequestAsync", "Messenger", FormMethod.Post)) {
-                        <button class="Chat_ConnectionDisplay WaitFor" name="connection" type="submit" value="@req.RequestID">@req.Sender.Name and @req.Receiver.Name</button>
+                    if (list1 != null) {
+                        if (list1.Length > 0) {
+
+                            foreach (Request req in list1) {
+                                @using (Html.BeginForm("AcceptRequestAsync", "Messenger", FormMethod.Post)) {
+                                    for (int i = 0; i < 10; i++) {
+                                        <button class="Chat_ConnectionDisplay WaitFor Chat_RequestEntry" name="connection" type="submit" value="@req.RequestID">@req.Sender.Name and @req.Receiver.Name</button>
+                                    }
+                                }
+                            }
+                        } else {
+                            <label class="Chat_RequestEntry">No Requests</label>
+                        }
                     }
                 }
-            } else {
-                <label>No Requests</label>
-            }
-        }
-    }
+            </div>
+        </div>
 
-    <label>Incoming Requests</label>
-    @{
-        Request[] list2 = ViewData["RequestList2"] as Request[];
-        if (list2 != null) {
-            if (list2.Length > 0) {
-                foreach (Request req in list2) {
-                    <label>@req.Sender.Name and @req.Receiver.Name</label>
+        <label class="Chat_RequestHeading">Outcoming Requests</label>
+        <div class="Chat_OverflowEntrys">
+
+            @{
+                Request[] list2 = ViewData["RequestList2"] as Request[];
+                if (list2 != null) {
+                    if (list2.Length > 0) {
+                        foreach (Request req in list2) {
+                            for (int i = 0; i < 10; i++) {
+                                <label class="Chat_RequestEntry">@req.Sender.Name</label>
+                            }
+                        }
+                    } else {
+                        <label class="Chat_RequestEntry">No open Requests</label>
+                    }
                 }
-            } else {
-                <label>No open Requests</label>
             }
-        }
-    }
+        </div>
+    </div>
+
+
 </div>

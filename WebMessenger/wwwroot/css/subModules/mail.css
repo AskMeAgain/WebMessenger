@@ -111,7 +111,31 @@ td {
 }
 
 #Chat_ProofButton {
-    font-size:0.5em;
-    line-height:30px;
-    border-width:2px;
+    font-size: 0.5em;
+    line-height: 30px;
+    border-width: 2px;
+}
+
+.Chat_RequestHeading {
+    display: block;
+    width: 100%;
+    font-size:2.3em;
+}
+
+.Chat_RequestEntry {
+    display: block;
+    font-size: 1.5em;
+    line-height: 40px;
+    margin-left: 30px;
+}
+
+
+.Chat_RequestLayout {
+    height: 200px;
+    margin-bottom: 40px;
+}
+
+.Chat_OverflowEntrys{
+    height:180px;
+    overflow-y:auto;
 }
