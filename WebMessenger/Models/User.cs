@@ -14,6 +14,7 @@ namespace WebMessenger.Models {
         public string PW { get; set; }
         public string PW2 { get; set; }
         public string Email { get; set; }
+        public string Color { get; set; }
 
         public int AddressIndex { get; set; }
 

@@ -49,6 +49,7 @@ namespace WebMessenger.Controllers {
 
             ViewData["Local"] = local;
             ViewData["Current"] = id;
+            ViewData["Color"] = local.Color;
 
             if (id != null && id.Equals("OpenRequests")) {
 
@@ -84,14 +85,25 @@ namespace WebMessenger.Controllers {
             return RedirectToAction("Overview", new { id = "Chat" });
         }
 
-        public ActionResult SetSettings(string url, string color) {
+        public async Task<ActionResult> SetSettingsAsync(string url, string color) {
 
-            ViewData["color"] = color;
+            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
+            User local = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+
+            local.Color = color;
+
+            await _context.SaveChangesAsync();
+
+            HttpContext.Session.SetObjectAsJson("User", local);
 
             //prepare url
             string[] realUrl = url.Split("/");
 
-            return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1]});
+            //if we are on mainpage, then remove parameter
+            if (realUrl.Length < 3)
+                realUrl[realUrl.Length - 1] = "";
+
+            return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1] });
         }
 
         public ActionResult Login() {
@@ -110,8 +122,8 @@ namespace WebMessenger.Controllers {
                 return RedirectToAction("Login");
             }
 
-            if (string.IsNullOrEmpty(user.Seed))
-                user.Seed = Seed.Random().ToString();
+            user.Seed = Seed.Random().ToString();
+            user.Color = "cornflowerblue";
 
             _context.User.Add(user);
 

@@ -1,6 +1,6 @@
 ﻿<label id="NavBar_OptionPanel_Title">Options</label>
 
-@using (Html.BeginForm("SetSettings", "Messenger", FormMethod.Post)) {
+@using (Html.BeginForm("SetSettingsAsync", "Messenger", FormMethod.Post)) {
     <input type="radio" name="color" value="green"> <label>Green</label> <br />
     <input type="radio" name="color" value="cornflowerblue"> <label>cornflowerblue</label> <br />
     <input type="radio" name="color" value="red"> <label>red</label> <br />
