@@ -84,6 +84,15 @@ namespace WebMessenger.Controllers {
             return RedirectToAction("Overview", new { id = "Chat" });
         }
 
+        public ActionResult SetSettings(string url, string color) {
+
+            ViewData["color"] = color;
+
+            //prepare url
+            string[] realUrl = url.Split("/");
+
+            return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1]});
+        }
 
         public ActionResult Login() {
             return View();
