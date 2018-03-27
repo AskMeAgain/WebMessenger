@@ -3,7 +3,10 @@
 
 <div class="Chat_ContentFrame">
     @using (Html.BeginForm("MakeRequestAsync", "Messenger", FormMethod.Post)) {
-        <input type="text" class="General_Inputfield" id="Chat_Inputfield" name="Name" />
-        <input class="WaitFor General_Button" type="submit" id="Chat_SubmitButton" value="Add Friend" />
+    <div class="Chat_SubmitGroupBy">
+        <label id="Chat_SubSubHeading">Enter Name</label><br />
+        <input type="text" class="General_Inputfield" id="Chat_AddFriend_Inputfield" name="Name" />
+        <input class="WaitFor General_Button" type="submit" id="Chat_AddFriend_Submit" value="Add Friend" />
+    </div>
     }
 </div>
