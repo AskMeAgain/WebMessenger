@@ -14,11 +14,10 @@
 
                             foreach (Request req in list1) {
                                 @using (Html.BeginForm("AcceptRequestAsync", "Messenger", FormMethod.Post)) {
-                                    for (int i = 0; i < 10; i++) {
-                                        <div class="Chat_RequestAcceptDiv">
-                                            <label class="Chat_RequestText2">Incoming Request from @req.Sender.Name</label><button class="Chat_ConnectionDisplay WaitFor Chat_RequestEntry" name="connection" type="submit" value="@req.RequestID">Accept</button>
-                                        </div>
-                                    }
+                                    <div class="Chat_RequestAcceptDiv">
+                                        <label class="Chat_RequestText2">Incoming Request from @req.Sender.Name</label><button class="Chat_ConnectionDisplay WaitFor Chat_RequestEntry" name="connection" type="submit" value="@req.RequestID">Accept</button>
+                                    </div>
+
                                 }
                             }
                         } else {
@@ -37,9 +36,8 @@
                 if (list2 != null) {
                     if (list2.Length > 0) {
                         foreach (Request req in list2) {
-                            for (int i = 0; i < 10; i++) {
-                                <label class="Chat_RequestEntry Chat_RequestText">@req.Sender.Name</label>
-                            }
+                            <label class="Chat_RequestEntry Chat_RequestText">@req.Sender.Name</label>
+
                         }
                     } else {
                         <label class="Chat_RequestEntry">No open Requests</label>

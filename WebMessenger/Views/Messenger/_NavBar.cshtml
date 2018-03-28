@@ -46,9 +46,11 @@
     </div>
 </div>
 
-@Html.Raw(TempData["msg"])
 
 <script>
     var color = "@Html.ViewData["Color"]";
     document.body.style.setProperty('--maincolor', color);
 </script>
+
+@Html.Raw(TempData["msg"])
+
