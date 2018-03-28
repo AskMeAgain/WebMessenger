@@ -6,13 +6,13 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 
 ## Features
 
-..* Messages are stored on a Distributed Ledger
-..* User can send/receive messages
-..* User Account system
-..* Chat request system
-..* User can change the colorscheme ([img](https://puu.sh/zR8eH/60a1009d1e.png))
+1. Messages are stored on a Distributed Ledger
+2. User can send/receive messages
+3. User Account system
+4. Chat request system
+5. User can change the colorscheme ([img](https://puu.sh/zR8eH/60a1009d1e.png))
 
-## The steps internally to start a chat with a user are:
+## The steps internally to start a chat with a user
 
 1. User A makes a request
 2. User A generates the receiving iota address
