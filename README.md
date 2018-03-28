@@ -21,6 +21,11 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 - User can see the iota transaction in a tangle explorer
 
 
+### Missing features
+
+- Passwords are stored in plain text
+- Allow users to connect to other iota node
+
 
 ## Proof-Of-Work
 
