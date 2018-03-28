@@ -30,6 +30,7 @@ Every step which needs Proof-Of-Work is opening a loading icon to signal somethi
 
 ## Screenshots
 
-[general view](https://puu.sh/zR88X/fc75fb3f29.png)
-[Request System 1](https://puu.sh/zR8if/79072df0fb.png)
-[Request System 2](https://puu.sh/zR8kh/59b88e0486.png)
+[general view](https://puu.sh/zR88X/fc75fb3f29.png)  
+[Request System 1](https://puu.sh/zR8if/79072df0fb.png)  
+[Request System 2](https://puu.sh/zR8kh/59b88e0486.png)  
+[Chat](https://puu.sh/zR8sx/7586945c34.png)  
