@@ -1,8 +1,12 @@
 # WebMessenger
 
+
+
 ## Introduction
 
 A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol and Felandil's C# Library "Tangle.Net" to send messages via a distributed ledger.
+
+
 
 ## Features
 
@@ -15,6 +19,14 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 ### Other  
 - User can change the colorscheme ([img](https://puu.sh/zR8eH/60a1009d1e.png))  
 
+
+
+## Proof-Of-Work
+
+Every step which needs Proof-Of-Work is opening a loading icon to signal something is happening ([pic](https://puu.sh/zR89r/d50efa9031.png)).
+
+
+
 ## The steps internally to start a chat with a user
 
 1. User A makes a request
@@ -23,9 +35,6 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 4. User B generates receiving iota address
 
 
-## Proof-Of-Work
-
-Every step which needs Proof-Of-Work is opening a loading icon to signal something is happening ([pic](https://puu.sh/zR89r/d50efa9031.png)).
 
 
 ## Screenshots
