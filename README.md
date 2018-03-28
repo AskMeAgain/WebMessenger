@@ -6,6 +6,10 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 
 ## Features
 
+..* Messages are stored on a Distributed Ledger
+..* User can send/receive messages
+..* User Account system
+..* Chat request system
 ..* User can change the colorscheme ([img](https://puu.sh/zR8eH/60a1009d1e.png))
 
 ## The steps internally to start a chat with a user are:
@@ -15,7 +19,14 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 3. User B user accepts request
 4. User B generates receiving iota address
 
+
+## Proof-Of-Work
+
 Every step which needs Proof-Of-Work is opening a loading icon to signal something is happening ([pic](https://puu.sh/zR89r/d50efa9031.png)).
 
 
-![screenshot](https://puu.sh/zR88X/fc75fb3f29.png)
+## Screenshots
+
+[general view](https://puu.sh/zR88X/fc75fb3f29.png)
+[Request System 1](https://puu.sh/zR8if/79072df0fb.png)
+[Request System 2](https://puu.sh/zR8kh/59b88e0486.png)
