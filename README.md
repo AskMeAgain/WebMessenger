@@ -23,7 +23,7 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 
 ### Missing features
 
-- Passwords are stored in plain text
+- Hash&Salt Passwords
 - Allow users to connect to other iota node
 
 
