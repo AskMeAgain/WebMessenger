@@ -119,22 +119,23 @@ namespace WebMessenger.Controllers {
 
         public async Task<ActionResult> SetSettingsAsync(string url, string color) {
 
-            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User local = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
-
-            local.Color = color;
-
-            await _context.SaveChangesAsync();
-
-            //update the stored object inside session too
-            HttpContext.Session.SetObjectAsJson("User", local);
-
             //prepare url
             string[] realUrl = url.Split("/");
 
             //if we are on mainpage, then remove parameter
             if (realUrl.Length < 3)
                 realUrl[realUrl.Length - 1] = "";
+
+            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
+            User local = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+
+            //set new color
+            local.Color = color;
+
+            //update the stored object inside session too
+            HttpContext.Session.SetObjectAsJson("User", local);
+
+            Task t1 = _context.SaveChangesAsync();
 
             return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1] });
         }
@@ -158,16 +159,14 @@ namespace WebMessenger.Controllers {
 
             _context.User.Add(user);
 
-            await generateAddressFromUserAsync(user, 0, 4);
-            await _context.SaveChangesAsync();
+            generateAddressFromUser(user, 0, 4);
+            _context.SaveChanges();
 
             return RedirectToAction("Login");
 
         }
 
         public async Task<IActionResult> MakeConnectionAsync(User model) {
-
-
 
             //Get both userIDs
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
@@ -178,7 +177,7 @@ namespace WebMessenger.Controllers {
             Connections testConn = await getConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
             if (testConn != null) {
                 TempData["msg"] = "<script>alert('Connection Already established');</script>";
-                return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
+                return RedirectToAction("Overview");
             }
 
             //Get Open addresses:
@@ -198,8 +197,7 @@ namespace WebMessenger.Controllers {
             _context.Connections.Add(conn);
 
             //generate a new address for your own user:
-            await generateAddressFromUserAsync(userA, userA.AddressIndex, userA.AddressIndex + 1);
-
+            generateAddressFromUser(userA, userA.AddressIndex, userA.AddressIndex + 1);
 
             //remove them out of the list
             _context.AddressTable.Remove(addrA);
@@ -231,7 +229,7 @@ namespace WebMessenger.Controllers {
             await MakeConnectionAsync(other);
 
             //add new address
-            await generateAddressFromUserAsync(other, other.AddressIndex, other.AddressIndex + 1);
+            generateAddressFromUser(other, other.AddressIndex, other.AddressIndex + 1);
 
             //remove request
             _context.Requests.Remove(req);
@@ -248,7 +246,7 @@ namespace WebMessenger.Controllers {
             User sender = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
 
             //add address
-            await generateAddressFromUserAsync(sender, sender.AddressIndex, sender.AddressIndex + 1);
+            generateAddressFromUser(sender, sender.AddressIndex, sender.AddressIndex + 1);
 
             //create Request
             Request req = new Request() {
@@ -314,7 +312,7 @@ namespace WebMessenger.Controllers {
             return Seed.Random().ToString();
         }
 
-        public async Task generateAddressFromUserAsync(User user, int start, int end) {
+        public void generateAddressFromUser(User user, int start, int end) {
 
             var addressGenerator = new AddressGenerator(user.getSeed());
 
@@ -335,7 +333,7 @@ namespace WebMessenger.Controllers {
             var entity = _context.User.Find(user.UserID);
             _context.Entry(entity).CurrentValues.SetValues(user);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
         }
 
