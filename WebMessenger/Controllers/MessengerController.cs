@@ -104,14 +104,14 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<ActionResult> ShowSpecificChatAsync(string connection) {
+        public ActionResult ShowSpecificChat(string connection) {
 
-            Connections conn = await _context.Connections.Include("UserA_").Include("UserB_").SingleAsync(m => m.ConnectionsID == int.Parse(connection));
+            Connections conn = _context.Connections.Include("UserA_").Include("UserB_").Single(m => m.ConnectionsID == int.Parse(connection));
 
             //storing the connection as selected
             HttpContext.Session.SetObjectAsJson("SelectedConnection", conn);
 
-            List<ChatEntry> list = await GetChatAsync(conn);
+            List<ChatEntry> list = GetChat(conn);
             HttpContext.Session.SetObjectAsJson("ChatList", list);
 
             return RedirectToAction("Overview", new { id = "Chat" });
@@ -135,7 +135,7 @@ namespace WebMessenger.Controllers {
             //update the stored object inside session too
             HttpContext.Session.SetObjectAsJson("User", local);
 
-            Task t1 = _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1] });
         }
@@ -302,8 +302,60 @@ namespace WebMessenger.Controllers {
             //sending the message to the tangle
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
-            return RedirectToAction("ShowSpecificChatAsync", new { connection = connection.ConnectionsID });
+            return RedirectToAction("ShowSpecificChat", new { connection = connection.ConnectionsID });
         }
+
+        public List<ChatEntry> GetChat(Connections conn) {
+
+            List<ChatEntry> chatEntrys = new List<ChatEntry>();
+
+            User User_A = _context.User.Single(m => m.Name.Equals(conn.UserA_.Name));
+            User User_B = _context.User.Single(m => m.Name.Equals(conn.UserB_.Name));
+
+            User local = HttpContext.Session.GetObjectFromJson<User>("User");
+
+            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+
+            //set refresh bools
+            if (conn.UserA_.Name.Equals(local.Name))
+                conn.Refresh_A = false;
+            else
+                conn.Refresh_B = false;
+
+            //updating entry
+            _context.Connections.Update(conn);
+            _context.SaveChanges();
+
+            //setting addresses to check for new messages
+            List<Address> addresses = new List<Address>() {
+                new Address(conn.AddressA),
+                new Address(conn.AddressB)
+            };
+
+            //doing now tangle stuff
+            var hashList = repository.FindTransactionsByAddresses(addresses);
+
+            List<Bundle> bundles = repository.GetBundles(hashList.Hashes, true);
+
+            foreach (Bundle b in bundles) {
+
+                string entryName = "";
+
+                if (b.Transactions[0].Address.ToString() == conn.AddressA)
+                    entryName = conn.UserB_.Name;
+                else
+                    entryName = conn.UserA_.Name;
+
+                ChatEntry entry = new ChatEntry(b, entryName, conn.EncryptionKey);
+                chatEntrys.Add(entry);
+            }
+
+            List<ChatEntry> sortedList = chatEntrys.OrderBy(o => o.TimeStamp).ToList();
+
+            return sortedList;
+
+        }
+
 
         #endregion
 
@@ -350,55 +402,6 @@ namespace WebMessenger.Controllers {
                     select c).Include("Sender").Include("Receiver").ToArray();
         }
 
-        public async Task<List<ChatEntry>> GetChatAsync(Connections conn) {
-
-            List<ChatEntry> chatEntrys = new List<ChatEntry>();
-
-            User User_A = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserA_.Name));
-            User User_B = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserB_.Name));
-
-            User local = HttpContext.Session.GetObjectFromJson<User>("User");
-
-            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
-
-            //set refresh bools
-            if (conn.UserA_.Name.Equals(local.Name))
-                conn.Refresh_A = false;
-            else
-                conn.Refresh_B = false;
-
-            //updating entry
-            _context.Connections.Update(conn);
-            _context.SaveChanges();
-
-            //setting addresses to check for new messages
-            List<Address> addresses = new List<Address>() {
-                new Address(conn.AddressA),
-                new Address(conn.AddressB)
-            };
-
-            var hashList = repository.FindTransactionsByAddresses(addresses);
-
-            List<Bundle> bundles = repository.GetBundles(hashList.Hashes, true);
-
-            foreach (Bundle b in bundles) {
-
-                string entryName = "";
-
-                if (b.Transactions[0].Address.ToString() == conn.AddressA)
-                    entryName = conn.UserB_.Name;
-                else
-                    entryName = conn.UserA_.Name;
-
-                ChatEntry entry = new ChatEntry(b, entryName, conn.EncryptionKey);
-                chatEntrys.Add(entry);
-            }
-
-            List<ChatEntry> sortedList = chatEntrys.OrderBy(o => o.TimeStamp).ToList();
-
-            return sortedList;
-
-        }
 
         private Connections[] getAllConnections(User user) {
             return (from c in _context.Connections

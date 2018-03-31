@@ -28,12 +28,5 @@ namespace WebMessenger.Models {
 
         }
 
-        public ChatEntry() {
-            Message = "empty";
-            Name = "LOL";
-            TimeStamp = 123123123;
-            TransactionID = "123123123";
-        }
-
     }
 }
