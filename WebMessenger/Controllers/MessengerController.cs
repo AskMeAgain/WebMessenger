@@ -140,7 +140,7 @@ namespace WebMessenger.Controllers {
             return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1] });
         }
 
-        public async Task<IActionResult> RegisterAsync(User user) {
+        public ActionResult Register(User user) {
 
             //first check if username is used!
             if (_context.User.Any(m => m.Name == user.Name)) {
@@ -158,9 +158,9 @@ namespace WebMessenger.Controllers {
             user.Color = "cornflowerblue";
 
             _context.User.Add(user);
+            _context.SaveChanges();
 
             generateAddressFromUser(user, 0, 4);
-            _context.SaveChanges();
 
             return RedirectToAction("Login");
 
@@ -170,19 +170,19 @@ namespace WebMessenger.Controllers {
 
             //Get both userIDs
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User userB = await _context.User.SingleAsync(m => m.Name == model.Name);
-            User userA = await _context.User.SingleAsync(m => m.UserID == temp.UserID);
+            User userA = _context.User.Single(m => m.UserID == temp.UserID);
+            User userB = _context.User.Single(m => m.Name == model.Name);
 
             //check if connection already exists!
-            Connections testConn = await getConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
+            Connections testConn = await GetConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
             if (testConn != null) {
                 TempData["msg"] = "<script>alert('Connection Already established');</script>";
                 return RedirectToAction("Overview");
             }
 
             //Get Open addresses:
-            AddressTable addrA = await _context.AddressTable.FirstAsync(m => m.UserID == userA.UserID);
-            AddressTable addrB = await _context.AddressTable.FirstAsync(m => m.UserID == userB.UserID);
+            AddressTable addrA = _context.AddressTable.First(m => m.UserID == userA.UserID);
+            AddressTable addrB = _context.AddressTable.First(m => m.UserID == userB.UserID);
 
             Connections conn = new Connections {
                 UserA_ = userA,
@@ -199,11 +199,10 @@ namespace WebMessenger.Controllers {
             //generate a new address for your own user:
             generateAddressFromUser(userA, userA.AddressIndex, userA.AddressIndex + 1);
 
-            //remove them out of the list
-            _context.AddressTable.Remove(addrA);
-            _context.AddressTable.Remove(addrB);
+            //remove addresses out of the list
+            _context.AddressTable.RemoveRange(addrA, addrB);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
 
@@ -214,7 +213,7 @@ namespace WebMessenger.Controllers {
             int ID = int.Parse(connection);
 
             //check first if ID exists
-            Request req = await _context.Requests.Include("Sender").Include("Receiver").SingleOrDefaultAsync(m => m.RequestID == ID);
+            Request req = _context.Requests.Include("Sender").Include("Receiver").SingleOrDefault(m => m.RequestID == ID);
 
             if (req == null)
                 return RedirectToAction("ShowRequests");
@@ -226,24 +225,26 @@ namespace WebMessenger.Controllers {
 
             other = (local.Name.Equals(req.Sender.Name)) ? req.Receiver : req.Sender;
 
-            await MakeConnectionAsync(other);
+            Task makeConnectionTask = MakeConnectionAsync(other);
 
             //add new address
             generateAddressFromUser(other, other.AddressIndex, other.AddressIndex + 1);
 
             //remove request
             _context.Requests.Remove(req);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            await makeConnectionTask;
 
             return RedirectToAction("ShowRequests");
         }
 
-        public async Task<IActionResult> MakeRequestAsync(string name) {
+        public ActionResult MakeRequest(string name) {
 
             //get receiver
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User receiver = await _context.User.SingleAsync(m => m.Name.Equals(name));
-            User sender = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+            User receiver = _context.User.Single(m => m.Name.Equals(name));
+            User sender = _context.User.Single(m => m.Name.Equals(temp.Name));
 
             //add address
             generateAddressFromUser(sender, sender.AddressIndex, sender.AddressIndex + 1);
@@ -255,13 +256,13 @@ namespace WebMessenger.Controllers {
             };
 
             _context.Requests.Add(req);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction("ShowAddFriend");
 
         }
 
-        public async Task<IActionResult> SendMessageAsync(string Message) {
+        public ActionResult SendMessage(string Message) {
 
             //connection to a iota node
             var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
@@ -278,7 +279,7 @@ namespace WebMessenger.Controllers {
 
             //updating entry
             _context.Connections.Update(connection);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             string sendingAddress = (connection.UserA_.UserID == sender.UserID) ? connection.AddressB : connection.AddressA;
 
@@ -433,7 +434,7 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<Connections> getConnectionFromTwoIDsAsync(int a, int b) {
+        public async Task<Connections> GetConnectionFromTwoIDsAsync(int a, int b) {
 
             return await _context.Connections.Include("UserA_").Include("UserB_").SingleOrDefaultAsync(
                 m => ((m.UserA_.UserID == a && m.UserB_.UserID == b) || (m.UserB_.UserID == a && m.UserA_.UserID == b)));

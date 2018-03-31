@@ -23,7 +23,7 @@
         }
     </table>
 
-    @using (Html.BeginForm("SendMessageAsync", "Messenger", FormMethod.Post)) {
+    @using (Html.BeginForm("SendMessage", "Messenger", FormMethod.Post)) {
         <input type="text" name="Message" id="Chat_Inputfield" class="General_Inputfield" />
         <input type="submit" id="Chat_SubmitButton" class="General_Button WaitFor" value="Send" />
     }
