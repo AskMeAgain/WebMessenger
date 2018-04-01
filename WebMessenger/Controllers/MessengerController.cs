@@ -104,30 +104,20 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<ActionResult> ShowSpecificChatAsync(string connection) {
+        public ActionResult ShowSpecificChat(string connection) {
 
-            Connections conn = await _context.Connections.Include("UserA_").Include("UserB_").SingleAsync(m => m.ConnectionsID == int.Parse(connection));
+            Connections conn = _context.Connections.Include("UserA_").Include("UserB_").Single(m => m.ConnectionsID == int.Parse(connection));
 
             //storing the connection as selected
             HttpContext.Session.SetObjectAsJson("SelectedConnection", conn);
 
-            List<ChatEntry> list = await GetChatAsync(conn);
+            List<ChatEntry> list = GetChat(conn);
             HttpContext.Session.SetObjectAsJson("ChatList", list);
 
             return RedirectToAction("Overview", new { id = "Chat" });
         }
 
         public async Task<ActionResult> SetSettingsAsync(string url, string color) {
-
-            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User local = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
-
-            local.Color = color;
-
-            await _context.SaveChangesAsync();
-
-            //update the stored object inside session too
-            HttpContext.Session.SetObjectAsJson("User", local);
 
             //prepare url
             string[] realUrl = url.Split("/");
@@ -136,10 +126,21 @@ namespace WebMessenger.Controllers {
             if (realUrl.Length < 3)
                 realUrl[realUrl.Length - 1] = "";
 
+            User temp = HttpContext.Session.GetObjectFromJson<User>("User");
+            User local = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+
+            //set new color
+            local.Color = color;
+
+            //update the stored object inside session too
+            HttpContext.Session.SetObjectAsJson("User", local);
+
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Overview", new { id = realUrl[realUrl.Length - 1] });
         }
 
-        public async Task<IActionResult> RegisterAsync(User user) {
+        public ActionResult Register(User user) {
 
             //first check if username is used!
             if (_context.User.Any(m => m.Name == user.Name)) {
@@ -157,9 +158,9 @@ namespace WebMessenger.Controllers {
             user.Color = "cornflowerblue";
 
             _context.User.Add(user);
+            _context.SaveChanges();
 
-            await generateAddressFromUserAsync(user, 0, 4);
-            await _context.SaveChangesAsync();
+            generateAddressFromUser(user, 0, 4);
 
             return RedirectToAction("Login");
 
@@ -167,23 +168,21 @@ namespace WebMessenger.Controllers {
 
         public async Task<IActionResult> MakeConnectionAsync(User model) {
 
-
-
             //Get both userIDs
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User userB = await _context.User.SingleAsync(m => m.Name == model.Name);
-            User userA = await _context.User.SingleAsync(m => m.UserID == temp.UserID);
+            User userA = _context.User.Single(m => m.UserID == temp.UserID);
+            User userB = _context.User.Single(m => m.Name == model.Name);
 
             //check if connection already exists!
-            Connections testConn = await getConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
+            Connections testConn = await GetConnectionFromTwoIDsAsync(userB.UserID, userA.UserID);
             if (testConn != null) {
                 TempData["msg"] = "<script>alert('Connection Already established');</script>";
-                return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
+                return RedirectToAction("Overview");
             }
 
             //Get Open addresses:
-            AddressTable addrA = await _context.AddressTable.FirstAsync(m => m.UserID == userA.UserID);
-            AddressTable addrB = await _context.AddressTable.FirstAsync(m => m.UserID == userB.UserID);
+            AddressTable addrA = _context.AddressTable.First(m => m.UserID == userA.UserID);
+            AddressTable addrB = _context.AddressTable.First(m => m.UserID == userB.UserID);
 
             Connections conn = new Connections {
                 UserA_ = userA,
@@ -198,14 +197,12 @@ namespace WebMessenger.Controllers {
             _context.Connections.Add(conn);
 
             //generate a new address for your own user:
-            await generateAddressFromUserAsync(userA, userA.AddressIndex, userA.AddressIndex + 1);
+            generateAddressFromUser(userA, userA.AddressIndex, userA.AddressIndex + 1);
 
+            //remove addresses out of the list
+            _context.AddressTable.RemoveRange(addrA, addrB);
 
-            //remove them out of the list
-            _context.AddressTable.Remove(addrA);
-            _context.AddressTable.Remove(addrB);
-
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction("ChatAsync", new { id = HttpContext.Session.GetObjectFromJson<User>("SelectedUser")?.Name });
 
@@ -216,7 +213,7 @@ namespace WebMessenger.Controllers {
             int ID = int.Parse(connection);
 
             //check first if ID exists
-            Request req = await _context.Requests.Include("Sender").Include("Receiver").SingleOrDefaultAsync(m => m.RequestID == ID);
+            Request req = _context.Requests.Include("Sender").Include("Receiver").SingleOrDefault(m => m.RequestID == ID);
 
             if (req == null)
                 return RedirectToAction("ShowRequests");
@@ -228,27 +225,29 @@ namespace WebMessenger.Controllers {
 
             other = (local.Name.Equals(req.Sender.Name)) ? req.Receiver : req.Sender;
 
-            await MakeConnectionAsync(other);
+            Task makeConnectionTask = MakeConnectionAsync(other);
 
             //add new address
-            await generateAddressFromUserAsync(other, other.AddressIndex, other.AddressIndex + 1);
+            generateAddressFromUser(other, other.AddressIndex, other.AddressIndex + 1);
 
             //remove request
             _context.Requests.Remove(req);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            await makeConnectionTask;
 
             return RedirectToAction("ShowRequests");
         }
 
-        public async Task<IActionResult> MakeRequestAsync(string name) {
+        public ActionResult MakeRequest(string name) {
 
             //get receiver
             User temp = HttpContext.Session.GetObjectFromJson<User>("User");
-            User receiver = await _context.User.SingleAsync(m => m.Name.Equals(name));
-            User sender = await _context.User.SingleAsync(m => m.Name.Equals(temp.Name));
+            User receiver = _context.User.Single(m => m.Name.Equals(name));
+            User sender = _context.User.Single(m => m.Name.Equals(temp.Name));
 
             //add address
-            await generateAddressFromUserAsync(sender, sender.AddressIndex, sender.AddressIndex + 1);
+            generateAddressFromUser(sender, sender.AddressIndex, sender.AddressIndex + 1);
 
             //create Request
             Request req = new Request() {
@@ -257,13 +256,13 @@ namespace WebMessenger.Controllers {
             };
 
             _context.Requests.Add(req);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToAction("ShowAddFriend");
 
         }
 
-        public async Task<IActionResult> SendMessageAsync(string Message) {
+        public ActionResult SendMessage(string Message) {
 
             //connection to a iota node
             var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
@@ -280,7 +279,7 @@ namespace WebMessenger.Controllers {
 
             //updating entry
             _context.Connections.Update(connection);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             string sendingAddress = (connection.UserA_.UserID == sender.UserID) ? connection.AddressB : connection.AddressA;
 
@@ -303,60 +302,15 @@ namespace WebMessenger.Controllers {
             //sending the message to the tangle
             var resultTransactions = repository.SendTrytes(bundle.Transactions, 27, 14);
 
-            return RedirectToAction("ShowSpecificChatAsync", new { connection = connection.ConnectionsID });
+            return RedirectToAction("ShowSpecificChat", new { connection = connection.ConnectionsID });
         }
 
-        #endregion
-
-        #region GETTERS and Helpers
-
-        private string generateEncryptionKey() {
-            return Seed.Random().ToString();
-        }
-
-        public async Task generateAddressFromUserAsync(User user, int start, int end) {
-
-            var addressGenerator = new AddressGenerator(user.getSeed());
-
-            int i;
-
-            for (i = start; i < end; i++) {
-                AddressTable addr = new AddressTable() {
-                    Index = user.AddressIndex + i,
-                    generatedAddress = addressGenerator.GetAddress(user.AddressIndex + i).ToString(),
-                    UserID = user.UserID
-                };
-
-                _context.AddressTable.Add(addr);
-            }
-
-            user.AddressIndex += i;
-
-            var entity = _context.User.Find(user.UserID);
-            _context.Entry(entity).CurrentValues.SetValues(user);
-
-            await _context.SaveChangesAsync();
-
-        }
-
-        public Request[] GetAllReceiverRequests(string name) {
-            return (from c in _context.Requests
-                    where (c.Receiver.Name.Equals(name))
-                    select c).Include("Sender").Include("Receiver").ToArray();
-        }
-
-        public Request[] GetAllSenderRequests(string name) {
-            return (from c in _context.Requests
-                    where (c.Sender.Name.Equals(name))
-                    select c).Include("Sender").Include("Receiver").ToArray();
-        }
-
-        public async Task<List<ChatEntry>> GetChatAsync(Connections conn) {
+        public List<ChatEntry> GetChat(Connections conn) {
 
             List<ChatEntry> chatEntrys = new List<ChatEntry>();
 
-            User User_A = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserA_.Name));
-            User User_B = await _context.User.SingleAsync(m => m.Name.Equals(conn.UserB_.Name));
+            User User_A = _context.User.Single(m => m.Name.Equals(conn.UserA_.Name));
+            User User_B = _context.User.Single(m => m.Name.Equals(conn.UserB_.Name));
 
             User local = HttpContext.Session.GetObjectFromJson<User>("User");
 
@@ -378,6 +332,7 @@ namespace WebMessenger.Controllers {
                 new Address(conn.AddressB)
             };
 
+            //doing now tangle stuff
             var hashList = repository.FindTransactionsByAddresses(addresses);
 
             List<Bundle> bundles = repository.GetBundles(hashList.Hashes, true);
@@ -400,6 +355,53 @@ namespace WebMessenger.Controllers {
             return sortedList;
 
         }
+
+
+        #endregion
+
+        #region GETTERS and Helpers
+
+        private string generateEncryptionKey() {
+            return Seed.Random().ToString();
+        }
+
+        public void generateAddressFromUser(User user, int start, int end) {
+
+            var addressGenerator = new AddressGenerator(user.getSeed());
+
+            int i;
+
+            for (i = start; i < end; i++) {
+                AddressTable addr = new AddressTable() {
+                    Index = user.AddressIndex + i,
+                    generatedAddress = addressGenerator.GetAddress(user.AddressIndex + i).ToString(),
+                    UserID = user.UserID
+                };
+
+                _context.AddressTable.Add(addr);
+            }
+
+            user.AddressIndex += i;
+
+            var entity = _context.User.Find(user.UserID);
+            _context.Entry(entity).CurrentValues.SetValues(user);
+
+            _context.SaveChanges();
+
+        }
+
+        public Request[] GetAllReceiverRequests(string name) {
+            return (from c in _context.Requests
+                    where (c.Receiver.Name.Equals(name))
+                    select c).Include("Sender").Include("Receiver").ToArray();
+        }
+
+        public Request[] GetAllSenderRequests(string name) {
+            return (from c in _context.Requests
+                    where (c.Sender.Name.Equals(name))
+                    select c).Include("Sender").Include("Receiver").ToArray();
+        }
+
 
         private Connections[] getAllConnections(User user) {
             return (from c in _context.Connections
@@ -435,7 +437,7 @@ namespace WebMessenger.Controllers {
 
         }
 
-        public async Task<Connections> getConnectionFromTwoIDsAsync(int a, int b) {
+        public async Task<Connections> GetConnectionFromTwoIDsAsync(int a, int b) {
 
             return await _context.Connections.Include("UserA_").Include("UserB_").SingleOrDefaultAsync(
                 m => ((m.UserA_.UserID == a && m.UserB_.UserID == b) || (m.UserB_.UserID == a && m.UserA_.UserID == b)));

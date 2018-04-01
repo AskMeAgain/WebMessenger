@@ -2,7 +2,7 @@
 <label class="General_MainFrameHeading">Add Chat</label>
 
 <div class="Chat_ContentFrame">
-    @using (Html.BeginForm("MakeRequestAsync", "Messenger", FormMethod.Post)) {
+    @using (Html.BeginForm("MakeRequest", "Messenger", FormMethod.Post)) {
     <div class="Chat_SubmitGroupBy">
         <label id="Chat_SubSubHeading">Enter Name</label><br />
         <input type="text" class="General_Inputfield" id="Chat_AddFriend_Inputfield" name="Name" />

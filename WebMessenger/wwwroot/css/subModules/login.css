@@ -10,12 +10,18 @@
 .Login_LoginPanel {
     width: 50%;
     float: left;
+    height:55%;
 }
 
 .Login_RegisterPanel {
     float: left;
-    height: 100%;
+    height: 75%;
     width: 50%;
+}
+
+#Login_RegisterButton {
+    position:relative;
+    bottom:-10px;
 }
 
 .Login_innerCenter {

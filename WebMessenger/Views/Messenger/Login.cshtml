@@ -31,7 +31,7 @@
     <div class="Login_RegisterPanel">
         <div class="Login_innerCenter">
             <label class="SubHeadings">Register</label>
-            @using (Html.BeginForm("RegisterAsync", "Messenger", FormMethod.Post)) {
+            @using (Html.BeginForm("Register", "Messenger", FormMethod.Post)) {
 
                 <div class="Login_inputRow Login_Smaller">
                     <label>Name</label>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="Login_inputRow Login_Smaller">
-                    <button class="General_Button WaitFor" type="submit">Register</button>
+                    <button class="General_Button WaitFor" id="Login_RegisterButton" type="submit">Register</button>
                 </div>
 
             }
