@@ -25,6 +25,7 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 
 - Hash&Salt Passwords
 - Allow users to connect to other iota node
+- Resizing window doesnt break entire page
 
 
 ## Proof-Of-Work
