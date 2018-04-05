@@ -314,7 +314,7 @@ namespace WebMessenger.Controllers {
 
             User local = HttpContext.Session.GetObjectFromJson<User>("User");
 
-            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+            var repository = new RestIotaRepository(new RestClient("https://field.carriota.com:443"), new PoWService(new CpuPowDiver()));
 
             //set refresh bools
             if (conn.UserA_.Name.Equals(local.Name))

@@ -59,7 +59,6 @@
     font-size: 1.7em;
 }
 
-
 #NavBar_OptionPanel {
     background-color: var(--maincolor);
     width: 300px;
@@ -108,7 +107,7 @@
     background-color: #fff;
     opacity: 0.8;
     z-index: 1001;
-    display: none;
+    display:none;
 }
 
 #NavBar_loadImg {
@@ -124,9 +123,13 @@
 #NavBar_loadingCircleText {
     color: var(--maincolor);
     top: 10px;
-    font-size: 2.4em;
-    text-align:center;
+    font-size: 2.6em;
     line-height:60px;
+    position:absolute;
+    left:50%;
+    width:400px;
+    transform:translateX(-50%);
+    text-align:center;
 }
 
 #NavBar_loadingCircle_Panel {

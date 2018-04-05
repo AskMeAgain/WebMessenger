@@ -71,24 +71,10 @@
     left: 30px;
     right: 30px;
     bottom: 30px;
+    overflow-y:auto;
 }
 
-.Chat_ConnectionDisplay {
-    color: white;
-    background-color: var(--maincolor);
-    border-style: solid;
-    border-width: 4px;
-    border-radius: 7px;
-    float:left;
-    height:40px;
-    position:relative;
-    top:10px;
-}
 
-    .Chat_ConnectionDisplay:hover {
-        color: var(--maincolor);
-        background-color: white;
-    }
 
 #Chat_Table {
     position: absolute;
@@ -170,4 +156,41 @@ td {
     line-height:45px;
     margin-top: 100px;
     text-align:center;
+}
+
+
+
+
+
+
+
+
+
+
+.Chat_Display_Entry {
+    line-height:60px;
+}
+
+.Chat_ConnectionDisplay {
+    color: white;
+    background-color: var(--maincolor);
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 7px;
+    float: left;
+    height: 40px;
+    position: relative;
+    top: 10px;
+}
+
+    .Chat_ConnectionDisplay:hover {
+        color: var(--maincolor);
+        background-color: white;
+    }
+
+
+.Chat_Display_Label {
+    margin-left:20px;
+    font-size:1.5em;
+
 }

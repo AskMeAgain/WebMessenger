@@ -16,16 +16,18 @@ namespace WebMessenger.Models {
 
         public ChatEntry(Bundle bundle, string name, string encryptionKey) {
 
-            TransactionID = bundle.Transactions[0].Hash.ToString();
-            Name = name;
+            if (bundle != null) {
 
-            Message = bundle.Transactions[0].Fragment.ToAsciiString();
-            TimeStamp = bundle.Transactions[0].Timestamp;
+                TransactionID = bundle.Transactions[0].Hash.ToString();
+                Name = name;
 
-            if (string.IsNullOrEmpty(Message)) {
-                Message = Utility.DecryptString(Message, encryptionKey);
+                Message = bundle.Transactions[0].Fragment.ToAsciiString();
+                TimeStamp = bundle.Transactions[0].Timestamp;
+
+                if (string.IsNullOrEmpty(Message)) {
+                    Message = Utility.DecryptString(Message, encryptionKey);
+                }
             }
-
         }
 
     }
