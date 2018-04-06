@@ -30,7 +30,7 @@ A Webmessenger using ASP.NET MVC Core 2,Entity Framework, Iota/Tangle protocol a
 
 ## Proof-Of-Work
 
-Every step which needs Proof-Of-Work is opening a loading icon to signal something is happening ([pic](https://puu.sh/zR89r/d50efa9031.png)).
+Every step which needs Proof-Of-Work is opening a loading icon to signal something is happening ([pic](https://puu.sh/zR89r/d50efa9031.png)). This process is taking a long time (~10seconds), not because of inefficiency of the code, but just the way Iota works.
 
 
 
