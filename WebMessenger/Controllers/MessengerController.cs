@@ -232,9 +232,10 @@ namespace WebMessenger.Controllers {
 
             //remove request
             _context.Requests.Remove(req);
-            _context.SaveChanges();
 
             await makeConnectionTask;
+
+            _context.SaveChanges();
 
             return RedirectToAction("ShowRequests");
         }
@@ -265,7 +266,7 @@ namespace WebMessenger.Controllers {
         public ActionResult SendMessage(string Message) {
 
             //connection to a iota node
-            var repository = new RestIotaRepository(new RestClient("https://iotanode.us:443"), new PoWService(new CpuPowDiver()));
+            var repository = new RestIotaRepository(new RestClient("http://node04.iotatoken.nl:14265"), new PoWService(new CpuPowDiver()));
 
             User sender = HttpContext.Session.GetObjectFromJson<User>("User");
 
